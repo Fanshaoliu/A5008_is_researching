@@ -1,8 +1,8 @@
 %% hybrid.bib
 %% References for the "Hybrid Architectures" chapter of the MLLM survey.
-%% Citation keys follow the canonical DBLP record ids.
-%% Conference/journal entries use full DBLP fields; arXiv preprints use archivePrefix+eprint.
-%% Last refreshed against DBLP on 2026-05-18.
+%% @inproceedings entries indexed in DBLP keep their canonical DBLP keys with full venue fields.
+%% @misc entries are refreshed from the arXiv API with author, title, year, primaryClass and url.
+%% Last refreshed against arXiv on 2026-05-18.
 
 %==============================================================
 % Pure-discrete and pure-continuous baselines (motivation)
@@ -46,153 +46,71 @@
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@inproceedings{DBLP:conf/iclr/YuLGVSMCGGHG0ER24,
-  author       = {Lijun Yu and
-                  Jos{\'{e}} Lezama and
-                  Nitesh Bharadwaj Gundavarapu and
-                  Luca Versari and
-                  Kihyuk Sohn and
-                  David Minnen and
-                  Yong Cheng and
-                  Agrim Gupta and
-                  Xiuye Gu and
-                  Alexander G. Hauptmann and
-                  Boqing Gong and
-                  Ming{-}Hsuan Yang and
-                  Irfan Essa and
-                  David A. Ross and
-                  Lu Jiang},
-  title        = {Language Model Beats Diffusion - Tokenizer is key to visual generation},
-  booktitle    = {The Twelfth International Conference on Learning Representations,
-                  {ICLR} 2024, Vienna, Austria, May 7-11, 2024},
-  publisher    = {OpenReview.net},
-  year         = {2024},
-  url          = {https://openreview.net/forum?id=gzqrANCF4g},
-  biburl       = {https://dblp.org/rec/conf/iclr/YuLGVSMCGGHG0ER24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@misc{Yu202305737,
+  author       = {Lijun Yu and José Lezama and Nitesh B. Gundavarapu and Luca Versari and Kihyuk Sohn and David Minnen and Yong Cheng and Vighnesh Birodkar and Agrim Gupta and Xiuye Gu and Alexander G. Hauptmann and Boqing Gong and Ming-Hsuan Yang and Irfan Essa and David A. Ross and Lu Jiang},
+  title        = {Language Model Beats Diffusion -- Tokenizer is Key to Visual Generation},
+  year         = {2023},
+  eprint       = {2310.05737},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2310.05737},
 }
 
-@article{DBLP:journals/corr/abs-2405-09818,
+@misc{Team202409818,
   author       = {Chameleon Team},
   title        = {Chameleon: Mixed-Modal Early-Fusion Foundation Models},
-  journal      = {CoRR},
-  volume       = {abs/2405.09818},
   year         = {2024},
-  url          = {https://doi.org/10.48550/arXiv.2405.09818},
-  doi          = {10.48550/ARXIV.2405.09818},
-  archivePrefix = {arXiv},
   eprint       = {2405.09818},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2405-09818.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2405.09818},
 }
 
-@inproceedings{DBLP:conf/iclr/ZhouYBTYSKMZL25,
-  author       = {Chunting Zhou and
-                  Lili Yu and
-                  Arun Babu and
-                  Kushal Tirumala and
-                  Michihiro Yasunaga and
-                  Leonid Shamis and
-                  Jacob Kahn and
-                  Xuezhe Ma and
-                  Luke Zettlemoyer and
-                  Omer Levy},
-  title        = {Transfusion: Predict the Next Token and Diffuse Images with One Multi-Modal
-                  Model},
-  booktitle    = {The Thirteenth International Conference on Learning Representations,
-                  {ICLR} 2025, Singapore, April 24-28, 2025},
-  publisher    = {OpenReview.net},
-  year         = {2025},
-  url          = {https://openreview.net/forum?id=SI2hI0frk6},
-  biburl       = {https://dblp.org/rec/conf/iclr/ZhouYBTYSKMZL25.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@misc{Zhou202411039,
+  author       = {Chunting Zhou and Lili Yu and Arun Babu and Kushal Tirumala and Michihiro Yasunaga and Leonid Shamis and Jacob Kahn and Xuezhe Ma and Luke Zettlemoyer and Omer Levy},
+  title        = {Transfusion: Predict the Next Token and Diffuse Images with One Multi-Modal Model},
+  year         = {2024},
+  eprint       = {2408.11039},
+  primaryClass = {cs.AI},
+  url          = {https://arxiv.org/abs/2408.11039},
 }
 
-@inproceedings{DBLP:conf/iclr/XieMBZWLGCYS25,
-  author       = {Jinheng Xie and
-                  Weijia Mao and
-                  Zechen Bai and
-                  David Junhao Zhang and
-                  Weihao Wang and
-                  Kevin Qinghong Lin and
-                  Yuchao Gu and
-                  Zhijie Chen and
-                  Zhenheng Yang and
-                  Mike Zheng Shou},
-  title        = {Show-o: One Single Transformer to Unify Multimodal Understanding and
-                  Generation},
-  booktitle    = {The Thirteenth International Conference on Learning Representations,
-                  {ICLR} 2025, Singapore, April 24-28, 2025},
-  publisher    = {OpenReview.net},
-  year         = {2025},
-  url          = {https://openreview.net/forum?id=o6Ynz6OIQ6},
-  biburl       = {https://dblp.org/rec/conf/iclr/XieMBZWLGCYS25.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@misc{Xie202412528,
+  author       = {Jinheng Xie and Weijia Mao and Zechen Bai and David Junhao Zhang and Weihao Wang and Kevin Qinghong Lin and Yuchao Gu and Zhijie Chen and Zhenheng Yang and Mike Zheng Shou},
+  title        = {Show-o: One Single Transformer to Unify Multimodal Understanding and Generation},
+  year         = {2024},
+  eprint       = {2408.12528},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2408.12528},
 }
 
 %==============================================================
 % Subsection: Embedding Quantization
 %==============================================================
 
-@article{DBLP:journals/corr/abs-2307-08041,
-  author       = {Yuying Ge and
-                  Yixiao Ge and
-                  Ziyun Zeng and
-                  Xintao Wang and
-                  Ying Shan},
-  title        = {Planting a {SEED} of Vision in Large Language Model},
-  journal      = {CoRR},
-  volume       = {abs/2307.08041},
+@misc{Ge202308041,
+  author       = {Yuying Ge and Yixiao Ge and Ziyun Zeng and Xintao Wang and Ying Shan},
+  title        = {Planting a SEED of Vision in Large Language Model},
   year         = {2023},
-  url          = {https://doi.org/10.48550/arXiv.2307.08041},
-  doi          = {10.48550/ARXIV.2307.08041},
-  archivePrefix = {arXiv},
   eprint       = {2307.08041},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2307-08041.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2307.08041},
 }
 
-@inproceedings{DBLP:conf/iclr/GeZZGLWS24,
-  author       = {Yuying Ge and
-                  Sijie Zhao and
-                  Ziyun Zeng and
-                  Yixiao Ge and
-                  Chen Li and
-                  Xintao Wang and
-                  Ying Shan},
-  title        = {Making LLaMA {SEE} and Draw with {SEED} Tokenizer},
-  booktitle    = {The Twelfth International Conference on Learning Representations,
-                  {ICLR} 2024, Vienna, Austria, May 7-11, 2024},
-  publisher    = {OpenReview.net},
-  year         = {2024},
-  url          = {https://openreview.net/forum?id=0Nui91LBQS},
-  biburl       = {https://dblp.org/rec/conf/iclr/GeZZGLWS24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@misc{Ge202301218,
+  author       = {Yuying Ge and Sijie Zhao and Ziyun Zeng and Yixiao Ge and Chen Li and Xintao Wang and Ying Shan},
+  title        = {Making LLaMA SEE and Draw with SEED Tokenizer},
+  year         = {2023},
+  eprint       = {2310.01218},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2310.01218},
 }
 
-@inproceedings{DBLP:conf/iclr/Jin0XCLTHCSMZOG24,
-  author       = {Yang Jin and
-                  Kun Xu and
-                  Liwei Chen and
-                  Chao Liao and
-                  Jianchao Tan and
-                  Quzhe Huang and
-                  Bin Chen and
-                  Chengru Song and
-                  Dai Meng and
-                  Di Zhang and
-                  Wenwu Ou and
-                  Kun Gai and
-                  Yadong Mu},
-  title        = {Unified Language-Vision Pretraining in {LLM} with Dynamic Discrete
-                  Visual Tokenization},
-  booktitle    = {The Twelfth International Conference on Learning Representations,
-                  {ICLR} 2024, Vienna, Austria, May 7-11, 2024},
-  publisher    = {OpenReview.net},
-  year         = {2024},
-  url          = {https://openreview.net/forum?id=FlvtjAB0gl},
-  biburl       = {https://dblp.org/rec/conf/iclr/Jin0XCLTHCSMZOG24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@misc{Jin202304669,
+  author       = {Yang Jin and Kun Xu and Kun Xu and Liwei Chen and Chao Liao and Jianchao Tan and Quzhe Huang and Bin Chen and Chenyi Lei and An Liu and Chengru Song and Xiaoqiang Lei and Di Zhang and Wenwu Ou and Kun Gai and Yadong Mu},
+  title        = {Unified Language-Vision Pretraining in LLM with Dynamic Discrete Visual Tokenization},
+  year         = {2023},
+  eprint       = {2309.04669},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2309.04669},
 }
 
 @inproceedings{DBLP:conf/icml/Jin00XCJHSLZ0GM24,
@@ -262,27 +180,13 @@
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{DBLP:journals/corr/abs-2404-14396,
-  author       = {Yuying Ge and
-                  Sijie Zhao and
-                  Jinguo Zhu and
-                  Yixiao Ge and
-                  Kun Yi and
-                  Lin Song and
-                  Chen Li and
-                  Xiaohan Ding and
-                  Ying Shan},
-  title        = {{SEED-X:} Multimodal Models with Unified Multi-granularity Comprehension
-                  and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2404.14396},
+@misc{Ge202414396,
+  author       = {Yuying Ge and Sijie Zhao and Jinguo Zhu and Yixiao Ge and Kun Yi and Lin Song and Chen Li and Xiaohan Ding and Ying Shan},
+  title        = {SEED-X: Multimodal Models with Unified Multi-granularity Comprehension and Generation},
   year         = {2024},
-  url          = {https://doi.org/10.48550/arXiv.2404.14396},
-  doi          = {10.48550/ARXIV.2404.14396},
-  archivePrefix = {arXiv},
   eprint       = {2404.14396},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2404-14396.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2404.14396},
 }
 
 %==============================================================
@@ -310,73 +214,31 @@
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{DBLP:journals/corr/abs-2505-05422,
-  author       = {Haokun Lin and
-                  Teng Wang and
-                  Yixiao Ge and
-                  Yuying Ge and
-                  Zhichao Lu and
-                  Ying Wei and
-                  Qingfu Zhang and
-                  Zhenan Sun and
-                  Ying Shan},
-  title        = {TokLIP: Marry Visual Tokens to {CLIP} for Multimodal Comprehension
-                  and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2505.05422},
+@misc{Lin202505422,
+  author       = {Haokun Lin and Teng Wang and Yixiao Ge and Yuying Ge and Zhichao Lu and Ying Wei and Qingfu Zhang and Zhenan Sun and Ying Shan},
+  title        = {TokLIP: Marry Visual Tokens to CLIP for Multimodal Comprehension and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2505.05422},
-  doi          = {10.48550/ARXIV.2505.05422},
-  archivePrefix = {arXiv},
   eprint       = {2505.05422},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2505-05422.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2505.05422},
 }
 
-@article{DBLP:journals/corr/abs-2506-15564,
-  author       = {Jinheng Xie and
-                  Zhenheng Yang and
-                  Mike Zheng Shou},
+@misc{Xie202515564,
+  author       = {Jinheng Xie and Zhenheng Yang and Mike Zheng Shou},
   title        = {Show-o2: Improved Native Unified Multimodal Models},
-  journal      = {CoRR},
-  volume       = {abs/2506.15564},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2506.15564},
-  doi          = {10.48550/ARXIV.2506.15564},
-  archivePrefix = {arXiv},
   eprint       = {2506.15564},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2506-15564.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2506.15564},
 }
 
-@article{DBLP:journals/corr/abs-2510-06590,
-  author       = {Ziyuan Huang and
-                  Dandan Zheng and
-                  Cheng Zou and
-                  Rui Liu and
-                  Xiaolong Wang and
-                  Kaixiang Ji and
-                  Weilong Chai and
-                  Jianxin Sun and
-                  Libin Wang and
-                  Yongjie Lv and
-                  Taozhi Huang and
-                  Jiajia Liu and
-                  Qingpei Guo and
-                  Ming Yang and
-                  Jingdong Chen and
-                  Jun Zhou},
-  title        = {Ming-UniVision: Joint Image Understanding and Generation with a Unified
-                  Continuous Tokenizer},
-  journal      = {CoRR},
-  volume       = {abs/2510.06590},
+@misc{Huang202506590,
+  author       = {Ziyuan Huang and DanDan Zheng and Cheng Zou and Rui Liu and Xiaolong Wang and Kaixiang Ji and Weilong Chai and Jianxin Sun and Libin Wang and Yongjie Lv and Taozhi Huang and Jiajia Liu and Qingpei Guo and Ming Yang and Jingdong Chen and Jun Zhou},
+  title        = {Ming-UniVision: Joint Image Understanding and Generation with a Unified Continuous Tokenizer},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2510.06590},
-  doi          = {10.48550/ARXIV.2510.06590},
-  archivePrefix = {arXiv},
   eprint       = {2510.06590},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2510-06590.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2510.06590},
 }
 
 %==============================================================
@@ -436,482 +298,179 @@
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{DBLP:journals/corr/abs-2412-15188,
-  author       = {Weijia Shi and
-                  Xiaochuang Han and
-                  Chunting Zhou and
-                  Weixin Liang and
-                  Xi Victoria Lin and
-                  Luke Zettlemoyer and
-                  Lili Yu},
+@misc{Shi202415188,
+  author       = {Weijia Shi and Xiaochuang Han and Chunting Zhou and Weixin Liang and Xi Victoria Lin and Luke Zettlemoyer and Lili Yu},
   title        = {LMFusion: Adapting Pretrained Language Models for Multimodal Generation},
-  journal      = {CoRR},
-  volume       = {abs/2412.15188},
   year         = {2024},
-  url          = {https://doi.org/10.48550/arXiv.2412.15188},
-  doi          = {10.48550/ARXIV.2412.15188},
-  archivePrefix = {arXiv},
   eprint       = {2412.15188},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2412-15188.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2412.15188},
 }
 
-@article{DBLP:journals/corr/abs-2501-17811,
-  author       = {Xiaokang Chen and
-                  Zhiyu Wu and
-                  Xingchao Liu and
-                  Zizheng Pan and
-                  Wen Liu and
-                  Zhenda Xie and
-                  Xingkai Yu and
-                  Chong Ruan},
-  title        = {Janus-Pro: Unified Multimodal Understanding and Generation with Data
-                  and Model Scaling},
-  journal      = {CoRR},
-  volume       = {abs/2501.17811},
+@misc{Chen202517811,
+  author       = {Xiaokang Chen and Zhiyu Wu and Xingchao Liu and Zizheng Pan and Wen Liu and Zhenda Xie and Xingkai Yu and Chong Ruan},
+  title        = {Janus-Pro: Unified Multimodal Understanding and Generation with Data and Model Scaling},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2501.17811},
-  doi          = {10.48550/ARXIV.2501.17811},
-  archivePrefix = {arXiv},
   eprint       = {2501.17811},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2501-17811.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.AI},
+  url          = {https://arxiv.org/abs/2501.17811},
 }
 
-@article{DBLP:journals/corr/abs-2501-12327,
-  author       = {Xianwei Zhuang and
-                  Yuxin Xie and
-                  Yufan Deng and
-                  Liming Liang and
-                  Jinghan Ru and
-                  Yuguo Yin and
-                  Yuexian Zou},
-  title        = {{VARGPT:} Unified Understanding and Generation in a Visual Autoregressive
-                  Multimodal Large Language Model},
-  journal      = {CoRR},
-  volume       = {abs/2501.12327},
+@misc{Zhuang202512327,
+  author       = {Xianwei Zhuang and Yuxin Xie and Yufan Deng and Liming Liang and Jinghan Ru and Yuguo Yin and Yuexian Zou},
+  title        = {VARGPT: Unified Understanding and Generation in a Visual Autoregressive Multimodal Large Language Model},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2501.12327},
-  doi          = {10.48550/ARXIV.2501.12327},
-  archivePrefix = {arXiv},
   eprint       = {2501.12327},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2501-12327.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2501.12327},
 }
 
-@article{DBLP:journals/corr/abs-2503-13436,
-  author       = {Lijie Fan and
-                  Luming Tang and
-                  Siyang Qin and
-                  Tianhong Li and
-                  Xuan Yang and
-                  Siyuan Qiao and
-                  Andreas Steiner and
-                  Chen Sun and
-                  Yuanzhen Li and
-                  Tao Zhu and
-                  Michael Rubinstein and
-                  Michalis Raptis and
-                  Deqing Sun and
-                  Radu Soricut},
-  title        = {Unified Autoregressive Visual Generation and Understanding with Continuous
-                  Tokens},
-  journal      = {CoRR},
-  volume       = {abs/2503.13436},
+@misc{Fan202513436,
+  author       = {Lijie Fan and Luming Tang and Siyang Qin and Tianhong Li and Xuan Yang and Siyuan Qiao and Andreas Steiner and Chen Sun and Yuanzhen Li and Tao Zhu and Michael Rubinstein and Michalis Raptis and Deqing Sun and Radu Soricut},
+  title        = {Unified Autoregressive Visual Generation and Understanding with Continuous Tokens},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2503.13436},
-  doi          = {10.48550/ARXIV.2503.13436},
-  archivePrefix = {arXiv},
   eprint       = {2503.13436},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2503-13436.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2503.13436},
 }
 
-@article{DBLP:journals/corr/abs-2504-02949,
-  author       = {Xianwei Zhuang and
-                  Yuxin Xie and
-                  Yufan Deng and
-                  Dongchao Yang and
-                  Liming Liang and
-                  Jinghan Ru and
-                  Yuguo Yin and
-                  Yuexian Zou},
-  title        = {VARGPT-v1.1: Improve Visual Autoregressive Large Unified Model via
-                  Iterative Instruction Tuning and Reinforcement Learning},
-  journal      = {CoRR},
-  volume       = {abs/2504.02949},
+@misc{Zhuang202502949,
+  author       = {Xianwei Zhuang and Yuxin Xie and Yufan Deng and Dongchao Yang and Liming Liang and Jinghan Ru and Yuguo Yin and Yuexian Zou},
+  title        = {VARGPT-v1.1: Improve Visual Autoregressive Large Unified Model via Iterative Instruction Tuning and Reinforcement Learning},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2504.02949},
-  doi          = {10.48550/ARXIV.2504.02949},
-  archivePrefix = {arXiv},
   eprint       = {2504.02949},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2504-02949.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2504.02949},
 }
 
-@article{DBLP:journals/corr/abs-2505-14682,
-  author       = {Rui Tian and
-                  Mingfei Gao and
-                  Mingze Xu and
-                  Jiaming Hu and
-                  Jiasen Lu and
-                  Zuxuan Wu and
-                  Yinfei Yang and
-                  Afshin Dehghan},
-  title        = {UniGen: Enhanced Training {\&} Test-Time Strategies for Unified Multimodal
-                  Understanding and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2505.14682},
+@misc{Tian202514682,
+  author       = {Rui Tian and Mingfei Gao and Mingze Xu and Jiaming Hu and Jiasen Lu and Zuxuan Wu and Yinfei Yang and Afshin Dehghan},
+  title        = {UniGen: Enhanced Training & Test-Time Strategies for Unified Multimodal Understanding and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2505.14682},
-  doi          = {10.48550/ARXIV.2505.14682},
-  archivePrefix = {arXiv},
   eprint       = {2505.14682},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2505-14682.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2505.14682},
 }
 
-@article{DBLP:journals/corr/abs-2505-05472,
-  author       = {Chao Liao and
-                  Liyang Liu and
-                  Xun Wang and
-                  Zhengxiong Luo and
-                  Xinyu Zhang and
-                  Wenliang Zhao and
-                  Jie Wu and
-                  Liang Li and
-                  Zhi Tian and
-                  Weilin Huang},
+@misc{Liao202505472,
+  author       = {Chao Liao and Liyang Liu and Xun Wang and Zhengxiong Luo and Xinyu Zhang and Wenliang Zhao and Jie Wu and Liang Li and Zhi Tian and Weilin Huang},
   title        = {Mogao: An Omni Foundation Model for Interleaved Multi-Modal Generation},
-  journal      = {CoRR},
-  volume       = {abs/2505.05472},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2505.05472},
-  doi          = {10.48550/ARXIV.2505.05472},
-  archivePrefix = {arXiv},
   eprint       = {2505.05472},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2505-05472.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2505.05472},
 }
 
-@article{DBLP:journals/corr/abs-2505-14683,
-  author       = {Chaorui Deng and
-                  Deyao Zhu and
-                  Kunchang Li and
-                  Chenhui Gou and
-                  Feng Li and
-                  Zeyu Wang and
-                  Shu Zhong and
-                  Weihao Yu and
-                  Xiaonan Nie and
-                  Ziang Song and
-                  Shi Guang and
-                  Haoqi Fan},
+@misc{Deng202514683,
+  author       = {Chaorui Deng and Deyao Zhu and Kunchang Li and Chenhui Gou and Feng Li and Zeyu Wang and Shu Zhong and Weihao Yu and Xiaonan Nie and Ziang Song and Guang Shi and Haoqi Fan},
   title        = {Emerging Properties in Unified Multimodal Pretraining},
-  journal      = {CoRR},
-  volume       = {abs/2505.14683},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2505.14683},
-  doi          = {10.48550/ARXIV.2505.14683},
-  archivePrefix = {arXiv},
   eprint       = {2505.14683},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2505-14683.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2505.14683},
 }
 
-@article{DBLP:journals/corr/abs-2506-18871,
-  author       = {Chenyuan Wu and
-                  Pengfei Zheng and
-                  Ruiran Yan and
-                  Shitao Xiao and
-                  Xin Luo and
-                  Yueze Wang and
-                  Wanli Li and
-                  Xiyan Jiang and
-                  Yexin Liu and
-                  Junjie Zhou and
-                  Ze Liu and
-                  Ziyi Xia and
-                  Chaofan Li and
-                  Haoge Deng and
-                  Jiahao Wang and
-                  Kun Luo and
-                  Bo Zhang and
-                  Defu Lian and
-                  Xinlong Wang and
-                  Zhongyuan Wang and
-                  Tiejun Huang and
-                  Zheng Liu},
-  title        = {OmniGen2: Exploration to Advanced Multimodal Generation},
-  journal      = {CoRR},
-  volume       = {abs/2506.18871},
+@misc{Wu202518871,
+  author       = {Chenyuan Wu and Pengfei Zheng and Ruiran Yan and Shitao Xiao and Xin Luo and Yueze Wang and Wanli Li and Xiyan Jiang and Yexin Liu and Junjie Zhou and Ze Liu and Ziyi Xia and Chaofan Li and Haoge Deng and Jiahao Wang and Kun Luo and Bo Zhang and Defu Lian and Xinlong Wang and Zhongyuan Wang and Tiejun Huang and Zheng Liu},
+  title        = {OmniGen2: Towards Instruction-Aligned Multimodal Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2506.18871},
-  doi          = {10.48550/ARXIV.2506.18871},
-  archivePrefix = {arXiv},
   eprint       = {2506.18871},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2506-18871.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2506.18871},
 }
 
-@article{DBLP:journals/corr/abs-2506-23044,
-  author       = {Guo{-}Hua Wang and
-                  Shanshan Zhao and
-                  Xinjie Zhang and
-                  Liangfu Cao and
-                  Pengxin Zhan and
-                  Lunhao Duan and
-                  Shiyin Lu and
-                  Minghao Fu and
-                  Xiaohao Chen and
-                  Jianshan Zhao and
-                  Yang Li and
-                  Qing{-}Guo Chen},
+@misc{Wang202523044,
+  author       = {Guo-Hua Wang and Shanshan Zhao and Xinjie Zhang and Liangfu Cao and Pengxin Zhan and Lunhao Duan and Shiyin Lu and Minghao Fu and Xiaohao Chen and Jianshan Zhao and Yang Li and Qing-Guo Chen},
   title        = {Ovis-U1 Technical Report},
-  journal      = {CoRR},
-  volume       = {abs/2506.23044},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2506.23044},
-  doi          = {10.48550/ARXIV.2506.23044},
-  archivePrefix = {arXiv},
   eprint       = {2506.23044},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2506-23044.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2506.23044},
 }
 
-@article{DBLP:journals/corr/abs-2506-10395,
-  author       = {Zhiyang Xu and
-                  Jiuhai Chen and
-                  Zhaojiang Lin and
-                  Xichen Pan and
-                  Lifu Huang and
-                  Tianyi Zhou and
-                  Madian Khabsa and
-                  Qifan Wang and
-                  Di Jin and
-                  Michihiro Yasunaga and
-                  Lili Yu and
-                  Xi Victoria Lin and
-                  Shaoliang Nie},
-  title        = {Pisces: An Auto-regressive Foundation Model for Image Understanding
-                  and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2506.10395},
+@misc{Xu202510395,
+  author       = {Zhiyang Xu and Jiuhai Chen and Zhaojiang Lin and Xichen Pan and Lifu Huang and Tianyi Zhou and Madian Khabsa and Qifan Wang and Di Jin and Michihiro Yasunaga and Lili Yu and Xi Victoria Lin and Shaoliang Nie},
+  title        = {Pisces: An Auto-regressive Foundation Model for Image Understanding and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2506.10395},
-  doi          = {10.48550/ARXIV.2506.10395},
-  archivePrefix = {arXiv},
   eprint       = {2506.10395},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2506-10395.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2506.10395},
 }
 
-@article{DBLP:journals/corr/abs-2506-03147,
-  author       = {Bin Lin and
-                  Zongjian Li and
-                  Xinhua Cheng and
-                  Yuwei Niu and
-                  Yang Ye and
-                  Xianyi He and
-                  Shenghai Yuan and
-                  Wangbo Yu and
-                  Shaodong Wang and
-                  Yunyang Ge and
-                  Yatian Pang and
-                  Li Yuan},
-  title        = {UniWorld-V1: High-Resolution Semantic Encoders for Unified Visual
-                  Understanding and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2506.03147},
+@misc{Lin202503147,
+  author       = {Bin Lin and Zongjian Li and Xinhua Cheng and Yuwei Niu and Yang Ye and Xianyi He and Shenghai Yuan and Wangbo Yu and Shaodong Wang and Yunyang Ge and Yatian Pang and Li Yuan},
+  title        = {UniWorld-V1: High-Resolution Semantic Encoders for Unified Visual Understanding and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2506.03147},
-  doi          = {10.48550/ARXIV.2506.03147},
-  archivePrefix = {arXiv},
   eprint       = {2506.03147},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2506-03147.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2506.03147},
 }
 
-@article{DBLP:journals/corr/abs-2508-03320,
-  author       = {Peiyu Wang and
-                  Yi Peng and
-                  Yimeng Gan and
-                  Liang Hu and
-                  Tianyidan Xie and
-                  Xiaokun Wang and
-                  Yichen Wei and
-                  Chuanxin Tang and
-                  Bo Zhu and
-                  Changshi Li and
-                  Hongyang Wei and
-                  Eric Li and
-                  Xuchen Song and
-                  Yang Liu and
-                  Yahui Zhou},
-  title        = {Skywork UniPic: Unified Autoregressive Modeling for Visual Understanding
-                  and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2508.03320},
+@misc{Wang202503320,
+  author       = {Peiyu Wang and Yi Peng and Yimeng Gan and Liang Hu and Tianyidan Xie and Xiaokun Wang and Yichen Wei and Chuanxin Tang and Bo Zhu and Changshi Li and Hongyang Wei and Eric Li and Xuchen Song and Yang Liu and Yahui Zhou},
+  title        = {Skywork UniPic: Unified Autoregressive Modeling for Visual Understanding and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2508.03320},
-  doi          = {10.48550/ARXIV.2508.03320},
-  archivePrefix = {arXiv},
   eprint       = {2508.03320},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2508-03320.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2508.03320},
 }
 
-@article{DBLP:journals/corr/abs-2509-04548,
-  author       = {Hongyang Wei and
-                  Baixin Xu and
-                  Hongbo Liu and
-                  Cyrus Wu and
-                  Jie Liu and
-                  Yi Peng and
-                  Peiyu Wang and
-                  Zexiang Liu and
-                  Jingwen He and
-                  Yidan Xietian and
-                  Chuanxin Tang and
-                  Zidong Wang and
-                  Yichen Wei and
-                  Liang Hu and
-                  Boyi Jiang and
-                  William Li and
-                  Ying He and
-                  Yang Liu and
-                  Xuchen Song and
-                  Eric Li and
-                  Yahui Zhou},
-  title        = {Skywork UniPic 2.0: Building Kontext Model with Online {RL} for Unified
-                  Multimodal Model},
-  journal      = {CoRR},
-  volume       = {abs/2509.04548},
+@misc{Wei202504548,
+  author       = {Hongyang Wei and Baixin Xu and Hongbo Liu and Size Wu and Jie Liu and Yi Peng and Peiyu Wang and Zexiang Liu and Jingwen He and Yidan Xietian and Chuanxin Tang and Zidong Wang and Yichen Wei and Liang Hu and Boyi Jiang and Wei Li and Ying He and Yang Liu and Xuchen Song and Yangguang Li and Yahui Zhou},
+  title        = {Skywork UniPic 2.0: Building Kontext Model with Online RL for Unified Multimodal Model},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2509.04548},
-  doi          = {10.48550/ARXIV.2509.04548},
-  archivePrefix = {arXiv},
   eprint       = {2509.04548},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2509-04548.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2509.04548},
 }
 
-@article{DBLP:journals/corr/abs-2510-22946,
-  author       = {Zeyu Wang and
-                  Zilong Chen and
-                  Chenhui Gou and
-                  Feng Li and
-                  Chaorui Deng and
-                  Deyao Zhu and
-                  Kunchang Li and
-                  Weihao Yu and
-                  Haoqin Tu and
-                  Haoqi Fan and
-                  Cihang Xie},
-  title        = {LightFusion: {A} Light-weighted, Double Fusion Framework for Unified
-                  Multimodal Understanding and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2510.22946},
+@misc{Wang202522946,
+  author       = {Zeyu Wang and Zilong Chen and Chenhui Gou and Feng Li and Chaorui Deng and Deyao Zhu and Kunchang Li and Weihao Yu and Haoqin Tu and Haoqi Fan and Cihang Xie},
+  title        = {LightFusion: A Light-weighted, Double Fusion Framework for Unified Multimodal Understanding and Generation},
   year         = {2025},
-  url          = {https://arxiv.org/abs/2510.22946},
-  doi          = {10.48550/ARXIV.2510.22946},
   eprint       = {2510.22946},
-  archivePrefix = {arXiv},
-  note         = {arXiv v4; DBLP record was filed under the former title ``LightBagel''.},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2510-22946.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2510.22946},
 }
 
-@article{DBLP:journals/corr/abs-2511-14760,
-  author       = {Rui Tian and
-                  Mingfei Gao and
-                  Haiming Gang and
-                  Jiasen Lu and
-                  Zhe Gan and
-                  Yinfei Yang and
-                  Zuxuan Wu and
-                  Afshin Dehghan},
-  title        = {UniGen-1.5: Enhancing Image Generation and Editing through Reward
-                  Unification in Reinforcement Learning},
-  journal      = {CoRR},
-  volume       = {abs/2511.14760},
+@misc{Tian202514760,
+  author       = {Rui Tian and Mingfei Gao and Haiming Gang and Jiasen Lu and Zhe Gan and Yinfei Yang and Zuxuan Wu and Afshin Dehghan},
+  title        = {UniGen-1.5: Enhancing Image Generation and Editing through Reward Unification in Reinforcement Learning},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2511.14760},
-  doi          = {10.48550/ARXIV.2511.14760},
-  archivePrefix = {arXiv},
   eprint       = {2511.14760},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2511-14760.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2511.14760},
 }
 
 %==============================================================
 % Subsection: Concatenation and Stacking
 %==============================================================
 
-@article{DBLP:journals/corr/abs-2504-01934,
-  author       = {Runhui Huang and
-                  Chunwei Wang and
-                  Junwei Yang and
-                  Guansong Lu and
-                  Yunlong Yuan and
-                  Jianhua Han and
-                  Lu Hou and
-                  Wei Zhang and
-                  Lanqing Hong and
-                  Hengshuang Zhao and
-                  Hang Xu},
-  title        = {{ILLUME+:} Illuminating Unified {MLLM} with Dual Visual Tokenization
-                  and Diffusion Refinement},
-  journal      = {CoRR},
-  volume       = {abs/2504.01934},
+@misc{Huang202501934,
+  author       = {Runhui Huang and Chunwei Wang and Junwei Yang and Guansong Lu and Yunlong Yuan and Jianhua Han and Lu Hou and Wei Zhang and Lanqing Hong and Hengshuang Zhao and Hang Xu},
+  title        = {ILLUME+: Illuminating Unified MLLM with Dual Visual Tokenization and Diffusion Refinement},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2504.01934},
-  doi          = {10.48550/ARXIV.2504.01934},
-  archivePrefix = {arXiv},
   eprint       = {2504.01934},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2504-01934.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2504.01934},
 }
 
-@article{DBLP:journals/corr/abs-2504-04423,
-  author       = {Yang Jiao and
-                  Haibo Qiu and
-                  Zequn Jie and
-                  Shaoxiang Chen and
-                  Jingjing Chen and
-                  Lin Ma and
-                  Yu{-}Gang Jiang},
-  title        = {UniToken: Harmonizing Multimodal Understanding and Generation through
-                  Unified Visual Encoding},
-  journal      = {CoRR},
-  volume       = {abs/2504.04423},
+@misc{Jiao202504423,
+  author       = {Yang Jiao and Haibo Qiu and Zequn Jie and Shaoxiang Chen and Jingjing Chen and Lin Ma and Yu-Gang Jiang},
+  title        = {UniToken: Harmonizing Multimodal Understanding and Generation through Unified Visual Encoding},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2504.04423},
-  doi          = {10.48550/ARXIV.2504.04423},
-  archivePrefix = {arXiv},
   eprint       = {2504.04423},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2504-04423.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2504.04423},
 }
 
-@article{DBLP:journals/corr/abs-2512-04810,
-  author       = {Xin He and
-                  Longhui Wei and
-                  Jianbo Ouyang and
-                  Minghui Liao and
-                  Lingxi Xie and
-                  Qi Tian},
-  title        = {{EMMA:} Efficient Multimodal Understanding, Generation, and Editing
-                  with a Unified Architecture},
-  journal      = {CoRR},
-  volume       = {abs/2512.04810},
+@misc{He202504810,
+  author       = {Xin He and Longhui Wei and Jianbo Ouyang and Minghui Liao and Lingxi Xie and Qi Tian},
+  title        = {EMMA: Efficient Multimodal Understanding, Generation, and Editing with a Unified Architecture},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2512.04810},
-  doi          = {10.48550/ARXIV.2512.04810},
-  archivePrefix = {arXiv},
   eprint       = {2512.04810},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2512-04810.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2512.04810},
 }
 
 %==============================================================
@@ -959,23 +518,11 @@
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{DBLP:journals/corr/abs-2503-06764,
-  author       = {Zisheng Chen and
-                  Chunwei Wang and
-                  Xiuwei Chen and
-                  Hang Xu and
-                  Jianhua Han and
-                  Xiaodan Liang},
-  title        = {SemHiTok: {A} Unified Image Tokenizer via Semantic-Guided Hierarchical
-                  Codebook for Multimodal Understanding and Generation},
-  journal      = {CoRR},
-  volume       = {abs/2503.06764},
+@misc{Chen202506764,
+  author       = {Zisheng Chen and Chunwei Wang and Runhui Huang and Hongbin Xu and Xiuwei Chen and Jun Zhou and Jianhua Han and Hang Xu and Xiaodan Liang},
+  title        = {SemHiTok: A Unified Image Tokenizer via Semantic-Guided Hierarchical Codebook for Multimodal Understanding and Generation},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2503.06764},
-  doi          = {10.48550/ARXIV.2503.06764},
-  archivePrefix = {arXiv},
   eprint       = {2503.06764},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2503-06764.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2503.06764},
 }
-

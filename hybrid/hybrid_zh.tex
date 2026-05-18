@@ -1,0 +1,121 @@
+%% hybrid_zh.tex
+%% 章节：面向统一多模态大模型的混合架构（中文译稿）
+%% 设计为通过 \input{} 嵌入到 ACM acmart 主稿中。
+%% 参考文献文件：hybrid.bib
+
+\section{混合架构（Hybrid Architectures）}
+\label{sec:hybrid}
+
+\subsection{动机：为何采用混合架构？（Motivation: Why Hybrid?）}
+\label{subsec:hybrid-motivation}
+
+统一多模态大语言模型（unified multimodal large language models, MLLMs）面临一个表征层面的两难。纯离散流水线使用向量量化（vector quantization, VQ）码本对图像进行词元化~\cite{DBLP:conf/nips/OordVK17,DBLP:conf/cvpr/EsserRO21,yu2024magvitv2}，并将其视为语言模型的一门外语，Chameleon~\cite{team2024chameleon} 即为代表。离散路线享有干净的下一词元（next-token）训练目标，但量化过程中会丢弃细粒度的视觉线索，从而使其理解性能逊于以 CLIP 驱动的连续表征系统~\cite{lin2025toklip,DBLP:conf/cvpr/YangYZRZ0Z25}。与之相对，纯连续流水线将图像嵌入为稠密特征，并将扩散（diffusion）或流（flow）头与语言头联合训练，Transfusion~\cite{zhou2024transfusion} 与 Show-o~\cite{xie2024showo} 即属此类。连续路线保留了视觉保真度，却把生成过程紧耦合到一个非自回归（non-autoregressive）骨干上，并使交错（interleaved）解码变得复杂。
+
+混合架构应运而生，用以调和这些相互竞争的诉求。它们沿三条轴混合连续与离散信号：分词器（tokenizer）、输入--输出通路，以及处理每条通路的网络参数。第~\ref{subsec:hybrid-taxonomy} 节给出沿这些轴组织近期混合设计的分类体系；本章其余部分逐一剖析各子类，并以一项跨族对比和对开放问题的展望作结。
+
+\subsection{混合架构设计的分类体系（A Taxonomy of Hybrid Designs）}
+\label{subsec:hybrid-taxonomy}
+
+我们将混合架构组织为五个族类，按从分词器层级混合到网络层级混合的顺序排列。
+
+\begin{itemize}
+    \item \textbf{嵌入量化（Embedding Quantization）}：将连续视觉嵌入压缩为与文本词表对齐的离散码序列，把图像视为一门外语~\cite{ge2023seed,ge2023seedllama,jin2024lavit,DBLP:conf/icml/Jin00XCJHSLZ0GM24,DBLP:conf/acl/ZhanDYZZLZYZL0F24,ge2024seedx}。
+    \item \textbf{隐空间语义化（Latent Semanticization）}：保留连续词元，但通过 CLIP 蒸馏、掩码自回归或辅助目标注入高层语义，从而缩小其与判别式编码器之间的差距~\cite{DBLP:conf/cvpr/YangYZRZ0Z25,lin2025toklip,xie2025showo2,huang2025minguni}。
+    \item \textbf{任务特定解耦（Task-Specific Decoupling）}：在同一变换器（Transformer）内部将理解与生成拆分到两个编码器或两条参数分支，沿 Janus--JanusFlow--Janus-Pro 系列及其众多衍生工作~\cite{DBLP:conf/cvpr/WuCWMLPLXYR025,DBLP:conf/cvpr/MaLCLWWPXZYZW0R25,shi2024lmfusion,chen2025januspro,zhuang2025vargpt,fan2025unifluid,zhuang2025vargptv11,tian2025unigen,liao2025mogao,deng2025bagel,wu2025omnigen2,wang2025ovisu1,xu2025pisces,lin2025uniworld,wang2025skyworkunipic,wei2025skyworkunipic2,wang2025lightfusion,tian2025unigen15}。
+    \item \textbf{拼接与堆叠（Concatenation and Stacking）}：将连续与离散两类异构词元沿序列轴或通道轴一并喂入语言模型，而不共享单一分词器~\cite{huang2025illumeplus,jiao2025unitoken,he2025emma}。
+    \item \textbf{融合与合并（Fusion and Merging）}：在分词器内部将两路信号统一起来，产生同时映射到语义特征与像素级特征的单一索引~\cite{DBLP:conf/iccv/XieDSL25,DBLP:conf/cvpr/QuZLWJGYDYW25,chen2025semhitok}。
+\end{itemize}
+
+五个族类的差异在于\emph{混合桥梁所处的位置}。嵌入量化和隐空间语义化在分词器处融合模态；任务特定解耦在网络处融合；拼接与堆叠在输入序列处融合；融合与合并则在码本内部融合。每一处位置都意味着训练简洁性、生成保真度与理解准确性之间不同的权衡，下面我们逐一审视。
+
+\subsection{嵌入量化（Embedding Quantization）}
+\label{subsec:embed-quant}
+
+嵌入量化方法训练一个分词器，将连续视觉特征压缩为可用标准语言模型损失消费的离散码序列。开创性的 SEED 分词器~\cite{ge2023seed} 通过一个因果 Q-Former 处理 BLIP-2 ViT 特征，使用学习得到的码本进行向量量化，并以图像--文本对比损失和图像重建损失共同监督这些码。这种双重监督让码既携带文本对齐的语义，又能通过基于扩散的反分词器（de-tokenizer）解码出逼真的像素。SEED-LLaMA~\cite{ge2023seedllama} 将该分词器与 LLaMA-2 耦合，并训练语言模型预测下一个图像或文本词元，证明单一的自回归目标足以同时支撑图像描述与图像合成。
+
+后续工作沿三个方向扩展该方案。LaVIT~\cite{jin2024lavit} 通过动态视觉分词器放宽固定长度假设，在量化前自适应地合并冗余补丁，得到熵与底层图像复杂度相匹配的可变长度码序列。Video-LaVIT~\cite{DBLP:conf/icml/Jin00XCJHSLZ0GM24} 将该设计扩展到视频，把每段片段分解为离散的关键帧码与离散的运动码，二者共同捕获仅靠单帧分词器会丢失的时空动态。AnyGPT~\cite{DBLP:conf/acl/ZhanDYZZLZYZL0F24} 将"语言即外部模态"的视角推进得更远，对语音、音乐和图像分别使用独立的离散分词器，并将其全部喂入同一个 LLaMA 骨干。SEED-X~\cite{ge2024seedx} 回到图像领域，但为反分词器引入多粒度条件，使同一组离散码既能驱动粗粒度生成，又能进行高精度编辑。
+
+在这些工作中，可调设计旋钮包括：码本规模、监督目标（CLIP 对齐 vs.\ 像素重建）以及量化粒度（固定网格 vs.\ 动态合并）。更大的码本可改善重建但延缓收敛；CLIP 对齐提升理解但损害像素保真度；动态合并改善效率但使语言建模目标变得复杂。其挥之不去的瓶颈仍是量化损失，这促使下一族在保持词元连续的同时仍设法注入语义。
+
+\subsection{隐空间语义化（Latent Semanticization）}
+\label{subsec:latent-sem}
+
+隐空间语义化方法保留连续视觉词元，但对其进行重塑，使其携带 VQ 流水线在量化时丢失的高层语义。MMAR~\cite{DBLP:conf/cvpr/YangYZRZ0Z25} 给出了形式化的论证：它表明像 Transfusion 这类基于扩散的统一模型把图像信息编码在带噪条件下的隐藏状态中，从而使理解阶段所用的洁净输入前向传递无法获取完整视觉内容。MMAR 因此把扩散头从自回归骨干中解耦出来，为每个连续补丁嵌入挂上一个轻量扩散头，并以 v-prediction 目标监督骨干的隐藏状态；这一做法在保留全部视觉信息以供理解的同时，仍能支持高质量生成。
+
+另一些工作选择重构分词器而非生成头。TokLIP~\cite{lin2025toklip} 颠倒了惯用的"先 VQ 后 CLIP"流水线，对既有 VQ 词元进行语义化：它在文本对齐与 CLIP 蒸馏损失下用 ViT 重新编码 VQGAN 码，仅用不到 VILA-U 预训练数据的 20\% 即取得与 LLaVA 相当的理解能力。Show-o2~\cite{xie2025showo2} 在 3D 因果 VAE 之上、通过空间--时间融合的双通路构建统一视觉表征，将原始 Show-o 方案在单一语言-流头之下扩展到图像与视频。Ming-UniVision~\cite{huang2025minguni} 把这一议程推到逻辑终点，提出全连续的分词器（MingTok），逐级将一个紧凑隐表示扩展为高维语义特征，最终扩展为重建的像素图，从根本上消除量化误差。
+
+这些方法殊途同归地揭示了一个关键洞见：当训练目标显式地解耦"要生成什么"与"要理解什么"时，分词器层级的融合便会成功。嵌入量化把两类信号都压缩进同一码中，而隐空间语义化让信号保持连续，并由下游头来决定强调哪一维度。因此，隐空间语义化在理解类基准上往往优于嵌入量化，但代价是更精巧的训练流水线和与架构强相关的生成头。
+
+\subsection{任务特定解耦（Task-Specific Decoupling）}
+\label{subsec:decoupling}
+
+任务特定解耦是混合架构中规模最大、最为活跃的一族，它通过为每项任务分配专用参数、同时共享语言模型主干，来缓解理解与生成之间的优化冲突。我们按\emph{被解耦的对象}组织该族：视觉编码器、变换器分支或建模范式。
+
+\subsubsection{双视觉编码器（Dual Vision Encoders）}
+\label{subsubsec:dual-enc}
+
+Janus 系列解耦的是\emph{视觉编码}。Janus~\cite{DBLP:conf/cvpr/WuCWMLPLXYR025} 用 SigLIP 进行理解、用 VQ 分词器进行生成，再把两路信号都送入同一个自回归变换器；此举在不复制语言模型的前提下化解了两类任务之间的粒度不匹配。JanusFlow~\cite{DBLP:conf/cvpr/MaLCLWWPXZYZW0R25} 保留双编码器前端，但将离散的生成路径替换为整流流（rectified flow），从而把扩散式采样直接整合进语言模型，免除了对独立扩散模型的依赖。Janus-Pro~\cite{chen2025januspro} 在该蓝图基础上扩展到 7B 参数并优化训练阶段，在理解上超越 TokenFlow 和 MetaMorph，在指令跟随式生成上接近 DALL-E 3。Skywork UniPic 系列~\cite{wang2025skyworkunipic,wei2025skyworkunipic2}、Pisces~\cite{xu2025pisces} 与 Ovis-U1~\cite{wang2025ovisu1} 都继承了双编码器骨干，并加入在线强化学习、混合分辨率训练和双向词元精炼器（token refiner），以进一步提升图像编辑保真度。
+
+\subsubsection{双变换器分支（Dual Transformer Branches）}
+\label{subsubsec:dual-branch}
+
+第二条线索解耦的是\emph{变换器参数}。LMFusion~\cite{shi2024lmfusion} 保留冻结的 Llama-3 处理文本，并引入并行的图像专用前馈与 QKV 投影；两条分支仅共享自注意力（self-attention），因此在保留语言能力的同时新增生成能力，所需训练算力（FLOPs）仅为从零训练的一半。BAGEL~\cite{deng2025bagel} 把这一思路推广为变换器混合专家（Mixture-of-Transformer-Experts, MoT），其中理解专家处理 ViT 词元，生成专家处理 VAE 词元，二者经由共享注意力层路由；该设计支撑起一个激活参数 7B 的模型，并表现出 3D 导航与自由形式编辑等涌现（emergent）能力。Mogao~\cite{liao2025mogao} 采用与之密切相关的深度融合设计，配以双视觉编码器和交错的旋转位置编码（rotary position embeddings），而 LightFusion~\cite{wang2025lightfusion} 则证明：通过在冻结的 Qwen2.5-VL 与冻结的 Wan2.2 DiT 之间交错插入多模态自注意力块，可以装配出同样的架构，仅训练约 35B 词元（$\sim$35B tokens）即可达到具有竞争力的性能。
+
+\subsubsection{自回归与扩散的混合（AR plus Diffusion Hybrids）}
+\label{subsubsec:ar-diff}
+
+第三条线索解耦的是\emph{生成范式}。VARGPT~\cite{zhuang2025vargpt} 用下一词元预测来生成文本、用下一尺度预测（next-scale prediction）来生成图像，将两种自回归粒度融合在同一个基于 LLaVA 的骨干内；VARGPT-v1.1~\cite{zhuang2025vargptv11} 加入直接偏好优化（DPO）和指令调优以激发涌现的编辑行为。UniFluid~\cite{fan2025unifluid} 保留纯自回归框架，但使用带扩散头的连续视觉词元，报告了两类任务之间一种干净的、可通过单一损失权重旋钮调控的折中。UniGen~\cite{tian2025unigen} 与 UniGen-1.5~\cite{tian2025unigen15} 在该范式上加入测试时的思维链（chain-of-thought）校验，以及面向生成与编辑的统一强化学习奖励。OmniGen2~\cite{wu2025omnigen2} 与 UniWorld-V1~\cite{lin2025uniworld} 走的是一条互补路线：通过轻量连接器在多模态理解骨干上挂载专用扩散解码器，并仅训练生成路径。
+
+由此可见，解耦族跨越了从\emph{浅层}解耦（不同编码器、共享骨干）到\emph{深层}解耦（贯穿网络的不同分支、不同生成目标）的整片光谱。Janus 的实证研究已表明即便是浅层解耦也能带来稳定收益，BAGEL 的 MoT 分析则确认更深的解耦在规模放大后能解锁涌现能力。其代价是参数与数据效率：从零训练 BAGEL 或 Janus-Pro 需要数十亿规模的多模态词元，这促成了 LightFusion 的轻量装配方案与 UniWorld-V1 的数据高效训练方案。
+
+\subsection{拼接与堆叠（Concatenation and Stacking）}
+\label{subsec:concat-stack}
+
+拼接与堆叠方法跳过分词器层级的融合，而是把异构词元并行喂入语言模型。ILLUME+~\cite{huang2025illumeplus} 引入 DualViTok——一个为每张图像同时产出语义码与像素码的双视觉分词器；语言模型按由粗到细的序列消费两组码、生成离散输出，并把细节合成下放给一个扩散反分词器。UniToken~\cite{jiao2025unitoken} 沿序列轴拼接 VQGAN 离散词元与 SigLIP 连续嵌入，并用显式边界词元加以分隔，从而对同一张图像同时保留低层细节与高层语义。EMMA~\cite{he2025emma} 用通道轴拼接代替序列轴拼接：一个对齐的 32$\times$ 自编码器产出空间形状一致的理解词元与生成词元，二者在一个共享--解耦变换器内部沿通道维融合，既缩短了上下文长度又保留了跨任务交互。
+
+拼接与堆叠之所以奏效，源自其架构上的极简性：语言模型看到的是嵌入已携带混合信息的词元序列，无需重新设计码本。其代价是序列长度（在序列轴变体中）或训练平衡问题（在通道轴变体中），下一族通过把两路信号坍缩为单一索引来正面应对这两点。
+
+\subsection{融合与合并（Fusion and Merging）}
+\label{subsec:fusion-merging}
+
+融合与合并方法在分词器内部就把两路信号统一起来。MUSE-VL~\cite{DBLP:conf/iccv/XieDSL25} 通过语义离散编码（Semantic Discrete Encoding, SDE）为 VQGAN 风格的分词器加入语义约束，使每个视觉码同时携带像素与语义信息；在相同 LLM 规模下相对 Emu3 取得 4.8\% 的理解提升，并把训练数据削减约一个数量级。TokenFlow~\cite{DBLP:conf/cvpr/QuZLWJGYDYW25} 采用双码本架构，让语义码本与像素级码本共享同一索引，使单个词元 id 可检索到两种互补嵌入；这种分离让首个离散输入模型得以在理解类基准上超越 LLaVA-1.5-13B。SemHiTok~\cite{chen2025semhitok} 对码本作分层组织：先训练并冻结一个语义码本，再在其上叠加纹理子码本以监督像素重建，过程中不扰动语义特征。
+
+融合与合并方法以更复杂的分词器为代价，提供了最干净的输入格式——一条离散 id 流。其成功取决于能否解耦语义目标与像素目标的联合训练，这三项工作分别通过双码本、共享索引和分层监督来加以应对。最终得到的分词器在表达力上趋近双编码器的水平，又能与现成的 LLM 训练基础设施保持兼容。
+
+\subsection{跨族对比（Cross-Cutting Comparison）}
+\label{subsec:hybrid-comparison}
+
+表~\ref{tab:hybrid-compare} 沿文献中反复出现的四条轴线汇总了五个混合族类：视觉表征、训练目标、解耦深度与代表性权衡。该对比凸显出三种规律。其一，五个族类都收敛到"连续理解流加离散或连续生成流"的格局，但在\emph{两路信号交汇之处}——分词器、输入序列、还是变换器分支——存在差异。其二，更深的解耦倾向于带来更高的峰值性能，但其代价是训练数据与参数；浅层的分词器级融合数据效率更高，却会限制可达到的理解上限。其三，最近的工作（BAGEL、Skywork UniPic 2.0、EMMA、LightFusion）将多个族类组合起来：BAGEL 将双编码器与双变换器分支组合；LightFusion 将双变换器分支与浅层注意力融合组合；EMMA 将通道维拼接与共享--解耦网络组合。混合架构的版图因此正从"互不相交的设计选择"转向"可组合的设计模式"。
+
+\begin{table}[t]
+  \caption{混合架构的跨族对比。``D'' 表示离散词元，``C'' 表示连续词元。``桥接位置''列标注混合桥梁所在之处：分词器（T）、输入序列（S）或网络分支（N）。}
+  \label{tab:hybrid-compare}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{0.18\linewidth}p{0.20\linewidth}p{0.18\linewidth}cp{0.24\linewidth}@{}}
+    \toprule
+    族类 & 视觉表征 & 训练目标 & 桥接位置 & 权衡 \\
+    \midrule
+    嵌入量化                       & D（CLIP 对齐）            & 下一词元交叉熵        & T & 码本限制理解上限 \\
+    隐空间语义化                   & C 加语义监督              & 交叉熵 + 扩散/流      & T & 分词器或辅助头更重 \\
+    任务特定解耦                   & C（理解）+ D/C（生成）   & 交叉熵 + 扩散/流      & N & 峰值高但训练昂贵 \\
+    拼接与堆叠                     & C $\oplus$ D              & 交叉熵 + 扩散          & S & 上下文偏长或难平衡 \\
+    融合与合并                     & 共享索引 + 双码          & 联合重建               & T & 分词器训练精巧 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{开放问题与展望（Open Problems and Outlook）}
+\label{subsec:hybrid-outlook}
+
+混合架构已大幅缩小了统一 MLLMs 与专用模型之间的差距，但仍有若干问题悬而未决。三个方向尤其值得未来工作关注。
+
+\textbf{分词器与 LLM 的协同设计。}多数混合分词器都是在隔离环境中训练、再在 LLM 训练阶段被冻结，这使码本与不断演化的语言先验之间存在错配。Ming-UniVision 与 SemHiTok 已指向端到端协同训练，但分词器与 LLM 联合训练的优化形貌仍知之甚少。
+
+\textbf{在混合目标下的扩展性（scaling）。}BAGEL 已证明，复杂推理只有在足够的规模与足够的交错数据下才会涌现，而联合交叉熵与扩散损失的扩展规律远未明朗。UniFluid 与 EMMA 都报告了对损失权重的敏感性，这暗示自适应课程学习与按模态的学习率值得系统研究。
+
+\textbf{预训练专家的模块化组合。}LightFusion 表明，通过在冻结的视觉语言模型与冻结的 DiT 之间交错插入注意力块，便可装配出具有竞争力的统一模型。若该趋势延续，下一代混合模型或许将更像即插即用的装配体，而非从零训练的整体系统，这会以新的架构搜索难题为代价，换取访问门槛的民主化。
+
+由此，混合议程把"统一多模态理解与生成"重新框定为一个设计模式问题，而非单一架构问题。随着分词器、分支与训练目标日益走向可组合，混合架构有望继续成为统一 MLLMs 的主导范式。
+
+%% 节末：\section{混合架构（Hybrid Architectures）}
