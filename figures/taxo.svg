@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1780 1600" width="100%" height="auto" preserveAspectRatio="xMidYMid meet">
+    <defs>
+        <style>
+            /* 统一矩形样式：白色背景 + 黑色/深灰边框 */
+            .box-root, .box-l1, .box-l2, .box-leaf,
+            .common-root-box, .arch-box, .train-box,
+            .leaf-arch, .leaf-train {
+                fill: #ffffff;
+                stroke: #2d3748;
+                stroke-width: 2.2;
+            }
+            /* 统一连接线样式：深灰色 */
+            .line, path {
+                stroke: #718096;
+                stroke-width: 2.5;
+                fill: none;
+                stroke-linejoin: round;
+            }
+            /* 文本样式统一 */
+            .text-root { 
+                font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+                fill: #1a202c; 
+                font-size: 18px; 
+                font-weight: bold; 
+                text-anchor: middle; 
+                dominant-baseline: middle; 
+            }
+            .text-main { 
+                font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+                fill: #1a202c; 
+                font-size: 16px; 
+                text-anchor: middle; 
+                dominant-baseline: middle; 
+            }
+            .text-l2 { 
+                font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+                fill: #1a202c; 
+                font-size: 16px; 
+                text-anchor: middle; 
+                dominant-baseline: middle; 
+            }
+            .text-leaf { 
+                font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+                fill: #1a202c; 
+                font-size: 15px; 
+                text-anchor: start; 
+                dominant-baseline: central; 
+            }
+            .highlight { fill: #2b6cb0; font-weight: bold; }
+        </style>
+    </defs>
+
+    <!-- ================= 公共根节点 (Level 0) ================= -->
+    <rect x="20" y="550" width="40" height="300" class="common-root-box" rx="8" />
+    <text transform="rotate(-90, 40, 700)" x="40" y="700" class="text-root">多模态大模型</text>
+
+    <!-- 从公共根节点到两个子根节点的连线 -->
+    <path class="line" d="M 40 700 L 80 700 M 80 270 L 80 1130 M 80 270 L 120 270 M 80 1130 L 120 1130" />
+
+
+    <!-- ================= 第一个子树：多模态大模型生成范式 ================= -->
+    
+    <!-- 连线层 -->
+    <path class="line" d="M 140 270 L 180 270 M 180 85 L 180 450 M 180 85 L 220 85 M 180 240 L 220 240 M 180 450 L 220 450" />
+    <path class="line" d="M 400 85 L 425 85 M 425 50 L 425 120 M 425 50 L 450 50 M 425 120 L 450 120" />
+    <path class="line" d="M 400 240 L 425 240 M 425 210 L 425 270 M 425 210 L 450 210 M 425 270 L 450 270" />
+    <path class="line" d="M 400 450 L 425 450 M 425 330 L 425 570 M 425 330 L 450 330 M 425 380 L 450 380 M 425 450 L 450 450 M 425 520 L 450 520 M 425 570 L 450 570" />
+    <path class="line" d="M 630 50 L 680 50 M 630 120 L 680 120 M 630 210 L 680 210 M 630 270 L 680 270 M 630 330 L 680 330 M 630 380 L 680 380 M 630 450 L 680 450 M 630 520 L 680 520 M 630 570 L 680 570" />
+
+    <!-- 节点层 -->
+    <!-- 子根节点 (Level 1) -->
+    <rect x="120" y="160" width="40" height="220" class="box-root" rx="8" />
+    <text transform="rotate(-90, 140, 270)" x="140" y="270" class="text-root">多模态大模型生成范式</text>
+
+    <!-- 一级节点 (Level 2) - 横排统一格式 -->
+    <rect x="220" y="65" width="180" height="40" class="box-l1" rx="12" />
+    <text x="310" y="85" class="text-main">连续型</text>
+
+    <rect x="220" y="220" width="180" height="40" class="box-l1" rx="12" />
+    <text x="310" y="240" class="text-main">离散型</text>
+
+    <rect x="220" y="430" width="180" height="40" class="box-l1" rx="12" />
+    <text x="310" y="450" class="text-main">混合型</text>
+
+    <!-- 二级节点 (Level 3) -->
+    <!-- Continuous Branch -->
+    <rect x="450" y="30" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="50" class="text-l2">潜变量重建</text>
+    <rect x="450" y="80" width="180" height="80" class="box-l2" rx="8" />
+    <text x="540" y="120" class="text-l2">语义嵌入</text>
+
+    <!-- Discrete Branch -->
+    <rect x="450" y="180" width="180" height="60" class="box-l2" rx="8" />
+    <text x="540" y="210" class="text-l2">Token 重建</text>
+    <rect x="450" y="250" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="270" class="text-l2">语义码本</text>
+
+    <!-- Hybrid Branch -->
+    <rect x="450" y="310" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="330" class="text-l2">嵌入量化</text>
+    <rect x="450" y="360" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="380" class="text-l2">潜变量语义化</text>
+    <rect x="450" y="410" width="180" height="80" class="box-l2" rx="8" />
+    <text x="540" y="450" class="text-l2">特定任务</text>
+    <rect x="450" y="500" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="520" class="text-l2">拼接堆叠</text>
+    <rect x="450" y="550" width="180" height="40" class="box-l2" rx="8" />
+    <text x="540" y="570" class="text-l2">融合合并</text>
+
+    <!-- 叶子节点 (Level 4) -->
+    <rect x="680" y="30" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="50" class="text-leaf">Transfusion, OmniGen, Dual Diffusion, LatentLM, NextStep-1, etc.</text>
+    
+    <rect x="680" y="80" width="1060" height="80" class="box-leaf" rx="8" />
+    <text class="text-leaf">
+        <tspan x="695" y="100">GILL, NExT-GPT, DreamLLM, MM-Interleaved, X-VILA, Emu, Emu2, PUMA,</tspan>
+        <tspan x="695" y="120">MetaMorph, OpenOmni, M2-omni, Nexus-gen, BLIP3-o, Ming-Lite-Uni, TBAC-UniImage,</tspan>
+        <tspan x="695" y="140">Bifrost-1, BLIP3o-NEXT, OmniVinci, Ming-Flash-Omni, Uni-MoE-2.0-Omni, etc.</tspan>
+    </text>
+    
+    <rect x="680" y="180" width="1060" height="60" class="box-leaf" rx="8" />
+    <text class="text-leaf">
+        <tspan x="695" y="200">Chameleon, ANOLE, Show-o, Lumina-mGPT, Emu3, SynerGen-VL, UniCMs,</tspan>
+        <tspan x="695" y="220">MMaDA, Muddit, Emu3.5, Lumina-DiMOO, etc.</tspan>
+    </text>
+    
+    <rect x="680" y="250" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="270" class="text-leaf">VILA-U, UniTok, UniFork, TAR, etc.</text>
+    
+    <rect x="680" y="310" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="330" class="text-leaf">SEED, SEED-LLaMA, LaViT, Video-LaViT, AnyGPT, SEED-X, etc.</text>
+    
+    <rect x="680" y="360" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="380" class="text-leaf">MMAR, TokLIP, Show-o2, Ming-UniVision, TUNA, etc.</text>
+    
+    <rect x="680" y="410" width="1060" height="80" class="box-leaf" rx="8" />
+    <text class="text-leaf">
+        <tspan x="695" y="430">Janus, JanusFlow, LMFusion, Janus-Pro, VARGPT, UniFluid, VARGPTv1.1, UniGen,</tspan>
+        <tspan x="695" y="450">Mogao, Bagel, OmniGen2, Ovis-U1, Pisces, UniWorld-V1, Skywork UniPic,</tspan>
+        <tspan x="695" y="470">Skywork Unipic 2.0, LightFusion, UniGen1.5, etc.</tspan>
+    </text>
+    
+    <rect x="680" y="500" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="520" class="text-leaf">ILLUME+, UniToken, EMMA, etc.</text>
+    
+    <rect x="680" y="550" width="1060" height="40" class="box-leaf" rx="8" />
+    <text x="695" y="570" class="text-leaf">MUSE-VL, TokenFlow, SemHiTok, etc.</text>
+
+
+    <!-- ================= 第二个子树：高效 MLLM ================= -->
+    <g transform="translate(0, 650)">
+        
+        <!-- 连线层 -->
+        <path d="M 140 480 L 180 480 M 180 280 L 180 685 M 180 280 L 220 280 M 180 685 L 220 685" class="line" />
+        <path d="M 400 280 L 425 280 M 425 80 L 425 480 M 425 80 L 450 80 M 425 150 L 450 150 M 425 260 L 450 260 M 425 380 L 450 380 M 425 480 L 450 480" class="line" />
+        <path d="M 400 685 L 425 685 M 425 580 L 425 790 M 425 580 L 450 580 M 425 650 L 450 650 M 425 720 L 450 720 M 425 790 L 450 790" class="line" />
+        <path d="M 700 80 L 740 80 M 700 150 L 740 150 M 700 260 L 740 260 M 700 380 L 740 380 M 700 480 L 740 480" class="line" />
+        <path d="M 700 580 L 740 580 M 700 650 L 740 650 M 700 720 L 740 720 M 700 790 L 740 790" class="line" />
+
+        <!-- 节点层 -->
+        <!-- 子根节点 (Level 1) -->
+        <rect x="120" y="360" width="40" height="240" class="common-root-box" rx="8" />
+        <text transform="rotate(-90, 140, 480)" x="140" y="480" class="text-root">高效多模态大模型</text>
+
+
+        <!-- 一级节点 (Level 2) - 横排统一格式 -->
+        <rect x="220" y="260" width="180" height="40" class="arch-box" rx="12" />
+        <text x="310" y="280" class="text-main">架构 </text>
+        
+        <rect x="220" y="665" width="180" height="40" class="train-box" rx="12" />
+        <text x="310" y="685" class="text-main">训练</text>
+
+        <!-- 二级节点 - 架构 (Level 3 - Architecture) -->
+        <rect x="450" y="60" width="250" height="40" class="arch-box" rx="8" />
+        <text x="575" y="80" class="text-main">视觉编码器</text>
+        
+        <rect x="450" y="130" width="250" height="40" class="arch-box" rx="8" />
+        <text x="575" y="150" class="text-main">视觉-语言投影器</text>
+        
+        <rect x="450" y="230" width="250" height="60" class="arch-box" rx="8" />
+        <text x="575" y="260" class="text-main">
+            <tspan x="575" dy="-10">紧凑型语言模型主干</tspan>
+            <tspan x="575" dy="24"></tspan>
+        </text>
+        
+        <rect x="450" y="360" width="250" height="40" class="arch-box" rx="8" />
+        <text x="575" y="380" class="text-main">视觉 Token 压缩 </text>
+        
+        <rect x="450" y="460" width="250" height="40" class="arch-box" rx="8" />
+        <text x="575" y="480" class="text-main">高效结构 </text>
+
+        <!-- 二级节点 - 训练 (Level 3 - Training) -->
+        <rect x="450" y="560" width="250" height="40" class="train-box" rx="8" />
+        <text x="575" y="580" class="text-main">面向效率的预训练</text>
+        
+        <rect x="450" y="630" width="250" height="40" class="train-box" rx="8" />
+        <text x="575" y="650" class="text-main">指令微调</text>
+        
+        <rect x="450" y="695" width="250" height="50" class="train-box" rx="8" />
+        <text x="575" y="720" class="text-main">
+            <tspan x="575" dy="-10">重新思考面向效率的训练阶段</tspan>
+            <tspan x="575" dy="22"></tspan>
+        </text>
+        
+        <rect x="450" y="765" width="250" height="50" class="train-box" rx="8" />
+        <text x="575" y="790" class="text-main">
+            <tspan x="575" dy="-10">参数高效迁移学习</tspan>
+            <tspan x="575" dy="22"></tspan>
+        </text>
+
+        <!-- 叶子节点 (Level 4) -->
+        <rect x="740" y="65" width="1000" height="30" class="leaf-arch" rx="8" />
+        <text x="755" y="80" class="text-leaf">ViTamin, BRAVE, SPHINX-X</text>
+        
+        <rect x="740" y="127" width="1000" height="46" class="leaf-arch" rx="8" />
+        <text x="755" y="150" class="text-leaf">
+            <tspan x="755" dy="-9">Perceiver resampler, LDPv2, VSS,</tspan>
+            <tspan x="755" dy="18">C/D-Abstractor, MEQ-Former</tspan>
+        </text>
+        
+        <rect x="740" y="208" width="1000" height="104" class="leaf-arch" rx="8" />
+        <text x="755" y="260" class="text-leaf">
+            <tspan x="755" dy="-36">MobileVLM, LLaVA-Phi, Imp, TinyLLaVA,</tspan>
+            <tspan x="755" dy="18">Bunny, Gemini Nano-2, MobileVLM V2, MoE-LLaVA,</tspan>
+            <tspan x="755" dy="18">Mini-Gemini, Vary-toy, TinyGPT-V, SPHINX-Tiny,</tspan>
+            <tspan x="755" dy="18">ALLaVA, MM1, LLaVA-Gemma, Mipha, VL-Mamba,</tspan>
+            <tspan x="755" dy="18">MiniCPM-V 2.0, DeepSeek-VL</tspan>
+        </text>
+        
+        <rect x="740" y="348" width="1000" height="64" class="leaf-arch" rx="8" />
+        <text x="755" y="380" class="text-leaf">
+            <tspan x="755" dy="-18">Mini-Gemini, LLaVA-UHD, TextHawk, TinyChart,</tspan>
+            <tspan x="755" dy="18">P2G, IXC2-4KHD, SPHINX-X, S², LLaVA-PruMerge,</tspan>
+            <tspan x="755" dy="18">MADTP, MoVA, Video-LLaVA</tspan>
+        </text>
+        
+        <rect x="740" y="457" width="1000" height="46" class="leaf-arch" rx="8" />
+        <text x="755" y="480" class="text-leaf">
+            <tspan x="755" dy="-9">SPD, MoE-LLaVA, MM1, Cobra, VL-Mamba,</tspan>
+            <tspan x="755" dy="18">FastV, VTW</tspan>
+        </text>
+        
+        <rect x="740" y="565" width="1000" height="30" class="leaf-train" rx="8" />
+        <text x="755" y="580" class="text-leaf">Idefics2, TinyLLaVA, VILA</text>
+        
+        <rect x="740" y="635" width="1000" height="30" class="leaf-train" rx="8" />
+        <text x="755" y="650" class="text-leaf">LaVIN, HyperLLaVA</text>
+        
+        <rect x="740" y="705" width="1000" height="30" class="leaf-train" rx="8" />
+        <text x="755" y="720" class="text-leaf">SPHINX-X, Cobra, TinyGPT-V</text>
+        
+        <rect x="740" y="775" width="1000" height="30" class="leaf-train" rx="8" />
+        <text x="755" y="790" class="text-leaf">EAS, MemVP</text>
+    </g>
+</svg>
