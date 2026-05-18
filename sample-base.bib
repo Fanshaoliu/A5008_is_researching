@@ -1485,3 +1485,392 @@ address      = {Berlin},
            Acceptance Phases with  Mobile Telepresence Robots},
   journal = {Robotics Aut. Systems}
 }
+
+
+%% hybrid.bib
+%% References for the "Hybrid Architectures" chapter of the MLLM survey.
+%% Each entry is verified against arXiv. Entries are grouped by subsection.
+
+%==============================================================
+% Pure-discrete and pure-continuous baselines (motivation)
+%==============================================================
+
+@article{vandenoord2017vqvae,
+  title   = {Neural Discrete Representation Learning},
+  author  = {van den Oord, A{\"a}ron and Vinyals, Oriol and Kavukcuoglu, Koray},
+  journal = {Advances in Neural Information Processing Systems},
+  year    = {2017},
+  eprint        = {1711.00937},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{esser2021vqgan,
+  title     = {Taming Transformers for High-Resolution Image Synthesis},
+  author    = {Esser, Patrick and Rombach, Robin and Ommer, Bj{\"o}rn},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2021},
+  eprint        = {2012.09841},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{yu2024magvitv2,
+  title     = {Language Model Beats Diffusion -- Tokenizer is Key to Visual Generation},
+  author    = {Yu, Lijun and Lezama, Jos{\'e} and Gundavarapu, Nitesh B. and Versari, Luca and Sohn, Kihyuk and Minnen, David and Cheng, Yong and Birodkar, Vighnesh and Gupta, Agrim and Gu, Xiuye and Hauptmann, Alexander G. and Gong, Boqing and Yang, Ming-Hsuan and Essa, Irfan and Ross, David A. and Jiang, Lu},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2024},
+  eprint        = {2310.05737},
+  archivePrefix = {arXiv}
+}
+
+@article{team2024chameleon,
+  title   = {Chameleon: Mixed-Modal Early-Fusion Foundation Models},
+  author  = {{Chameleon Team}},
+  journal = {arXiv preprint arXiv:2405.09818},
+  year    = {2024},
+  eprint        = {2405.09818},
+  archivePrefix = {arXiv}
+}
+
+@article{zhou2024transfusion,
+  title   = {Transfusion: Predict the Next Token and Diffuse Images with One Multi-Modal Model},
+  author  = {Zhou, Chunting and Yu, Lili and Babu, Arun and Tirumala, Kushal and Yasunaga, Michihiro and Shamis, Leonid and Kahn, Jacob and Ma, Xuezhe and Zettlemoyer, Luke and Levy, Omer},
+  journal = {arXiv preprint arXiv:2408.11039},
+  year    = {2024},
+  eprint        = {2408.11039},
+  archivePrefix = {arXiv}
+}
+
+@article{xie2024showo,
+  title   = {Show-o: One Single Transformer to Unify Multimodal Understanding and Generation},
+  author  = {Xie, Jinheng and Mao, Weijia and Bai, Zechen and Zhang, David Junhao and Wang, Weihao and Lin, Kevin Qinghong and Gu, Yuchao and Chen, Zhijie and Yang, Zhenheng and Shou, Mike Zheng},
+  journal = {arXiv preprint arXiv:2408.12528},
+  year    = {2024},
+  eprint        = {2408.12528},
+  archivePrefix = {arXiv}
+}
+
+%==============================================================
+% Subsection: Embedding Quantization
+%==============================================================
+
+@article{ge2023seed,
+  title   = {Planting a {SEED} of Vision in Large Language Model},
+  author  = {Ge, Yuying and Ge, Yixiao and Zeng, Ziyun and Wang, Xintao and Shan, Ying},
+  journal = {arXiv preprint arXiv:2307.08041},
+  year    = {2023},
+  eprint        = {2307.08041},
+  archivePrefix = {arXiv}
+}
+
+@article{ge2023seedllama,
+  title   = {Making {LLaMA} {SEE} and Draw with {SEED} Tokenizer},
+  author  = {Ge, Yuying and Zhao, Sijie and Zeng, Ziyun and Ge, Yixiao and Li, Chen and Wang, Xintao and Shan, Ying},
+  journal = {arXiv preprint arXiv:2310.01218},
+  year    = {2023},
+  eprint        = {2310.01218},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{jin2024lavit,
+  title     = {Unified Language-Vision Pretraining in {LLM} with Dynamic Discrete Visual Tokenization},
+  author    = {Jin, Yang and Xu, Kun and Xu, Kun and Chen, Liwei and Liao, Chao and Tan, Jianchao and Huang, Quzhe and Chen, Bin and Lei, Chenyi and Liu, An and Song, Chengru and Lei, Xiaoqiang and Zhang, Di and Ou, Wenwu and Gai, Kun and Mu, Yadong},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2024},
+  eprint        = {2309.04669},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{jin2024videolavit,
+  title     = {Video-{LaVIT}: Unified Video-Language Pre-training with Decoupled Visual-Motional Tokenization},
+  author    = {Jin, Yang and Sun, Zhicheng and Xu, Kun and Chen, Liwei and Jiang, Hao and Huang, Quzhe and Song, Chengru and Liu, Yuliang and Zhang, Di and Song, Yang and Gai, Kun and Mu, Yadong},
+  booktitle = {International Conference on Machine Learning},
+  year      = {2024},
+  eprint        = {2402.03161},
+  archivePrefix = {arXiv}
+}
+
+@article{zhan2024anygpt,
+  title   = {{AnyGPT}: Unified Multimodal {LLM} with Discrete Sequence Modeling},
+  author  = {Zhan, Jun and Dai, Junqi and Ye, Jiasheng and Zhou, Yunhua and Zhang, Dong and Liu, Zhigeng and Zhang, Xin and Yuan, Ruibin and Zhang, Ge and Li, Linyang and Yan, Hang and Fu, Jie and Gui, Tao and Sun, Tianxiang and Jiang, Yu-Gang and Qiu, Xipeng},
+  journal = {arXiv preprint arXiv:2402.12226},
+  year    = {2024},
+  eprint        = {2402.12226},
+  archivePrefix = {arXiv}
+}
+
+@article{ge2024seedx,
+  title   = {{SEED-X}: Multimodal Models with Unified Multi-granularity Comprehension and Generation},
+  author  = {Ge, Yuying and Zhao, Sijie and Zhu, Jinguo and Ge, Yixiao and Yi, Kun and Song, Lin and Li, Chen and Ding, Xiaohan and Shan, Ying},
+  journal = {arXiv preprint arXiv:2404.14396},
+  year    = {2024},
+  eprint        = {2404.14396},
+  archivePrefix = {arXiv}
+}
+
+%==============================================================
+% Subsection: Latent Semanticization
+%==============================================================
+
+@article{yang2024mmar,
+  title   = {{MMAR}: Towards Lossless Multi-Modal Auto-Regressive Probabilistic Modeling},
+  author  = {Yang, Jian and Yin, Dacheng and Zhou, Yizhou and Rao, Fengyun and Zhai, Wei and Cao, Yang and Zha, Zheng-Jun},
+  journal = {arXiv preprint arXiv:2410.10798},
+  year    = {2024},
+  eprint        = {2410.10798},
+  archivePrefix = {arXiv}
+}
+
+@article{lin2025toklip,
+  title   = {{TokLIP}: Marry Visual Tokens to {CLIP} for Multimodal Comprehension and Generation},
+  author  = {Lin, Haokun and Wang, Teng and Ge, Yixiao and Ge, Yuying and Lu, Zhichao and Wei, Ying and Zhang, Qingfu and Sun, Zhenan and Shan, Ying},
+  journal = {arXiv preprint arXiv:2505.05422},
+  year    = {2025},
+  eprint        = {2505.05422},
+  archivePrefix = {arXiv}
+}
+
+@article{xie2025showo2,
+  title   = {Show-o2: Improved Native Unified Multimodal Models},
+  author  = {Xie, Jinheng and Yang, Zhenheng and Shou, Mike Zheng},
+  journal = {arXiv preprint arXiv:2506.15564},
+  year    = {2025},
+  eprint        = {2506.15564},
+  archivePrefix = {arXiv}
+}
+
+@article{huang2025minguni,
+  title   = {{Ming-UniVision}: Joint Image Understanding and Generation with a Unified Continuous Tokenizer},
+  author  = {Huang, Ziyuan and Zheng, DanDan and Zou, Cheng and Liu, Rui and Wang, Xiaolong and Ji, Kaixiang and Chai, Weilong and Sun, Jianxin and Wang, Libin and Lv, Yongjie and Huang, Taozhi and Liu, Jiajia and Guo, Qingpei and Yang, Ming and Chen, Jingdong and Zhou, Jun},
+  journal = {arXiv preprint arXiv:2510.06590},
+  year    = {2025},
+  eprint        = {2510.06590},
+  archivePrefix = {arXiv}
+}
+
+%==============================================================
+% Subsection: Task-Specific Decoupling
+%==============================================================
+
+@article{wu2024janus,
+  title   = {Janus: Decoupling Visual Encoding for Unified Multimodal Understanding and Generation},
+  author  = {Wu, Chengyue and Chen, Xiaokang and Wu, Zhiyu and Ma, Yiyang and Liu, Xingchao and Pan, Zizheng and Liu, Wen and Xie, Zhenda and Yu, Xingkai and Ruan, Chong and Luo, Ping},
+  journal = {arXiv preprint arXiv:2410.13848},
+  year    = {2024},
+  eprint        = {2410.13848},
+  archivePrefix = {arXiv}
+}
+
+@article{ma2024janusflow,
+  title   = {{JanusFlow}: Harmonizing Autoregression and Rectified Flow for Unified Multimodal Understanding and Generation},
+  author  = {Ma, Yiyang and Liu, Xingchao and Chen, Xiaokang and Liu, Wen and Wu, Chengyue and Wu, Zhiyu and Pan, Zizheng and Xie, Zhenda and Zhang, Haowei and Yu, Xingkai and Zhao, Liang and Wang, Yisong and Liu, Jiaying and Ruan, Chong},
+  journal = {arXiv preprint arXiv:2411.07975},
+  year    = {2024},
+  eprint        = {2411.07975},
+  archivePrefix = {arXiv}
+}
+
+@article{shi2024lmfusion,
+  title   = {{LMFusion}: Adapting Pretrained Language Models for Multimodal Generation},
+  author  = {Shi, Weijia and Han, Xiaochuang and Zhou, Chunting and Liang, Weixin and Lin, Xi Victoria and Zettlemoyer, Luke and Yu, Lili},
+  journal = {arXiv preprint arXiv:2412.15188},
+  year    = {2024},
+  eprint        = {2412.15188},
+  archivePrefix = {arXiv}
+}
+
+@article{chen2025januspro,
+  title   = {{Janus-Pro}: Unified Multimodal Understanding and Generation with Data and Model Scaling},
+  author  = {Chen, Xiaokang and Wu, Zhiyu and Liu, Xingchao and Pan, Zizheng and Liu, Wen and Xie, Zhenda and Yu, Xingkai and Ruan, Chong},
+  journal = {arXiv preprint arXiv:2501.17811},
+  year    = {2025},
+  eprint        = {2501.17811},
+  archivePrefix = {arXiv}
+}
+
+@article{zhuang2025vargpt,
+  title   = {{VARGPT}: Unified Understanding and Generation in a Visual Autoregressive Multimodal Large Language Model},
+  author  = {Zhuang, Xianwei and Xie, Yuxin and Deng, Yufan and Liang, Liming and Ru, Jinghan and Yin, Yuguo and Zou, Yuexian},
+  journal = {arXiv preprint arXiv:2501.12327},
+  year    = {2025},
+  eprint        = {2501.12327},
+  archivePrefix = {arXiv}
+}
+
+@article{fan2025unifluid,
+  title   = {Unified Autoregressive Visual Generation and Understanding with Continuous Tokens},
+  author  = {Fan, Lijie and Tang, Luming and Qin, Siyang and Li, Tianhong and Yang, Xuan and Qiao, Siyuan and Steiner, Andreas and Sun, Chen and Li, Yuanzhen and Zhu, Tao and Rubinstein, Michael and Raptis, Michalis and Sun, Deqing and Soricut, Radu},
+  journal = {arXiv preprint arXiv:2503.13436},
+  year    = {2025},
+  eprint        = {2503.13436},
+  archivePrefix = {arXiv}
+}
+
+@article{zhuang2025vargptv11,
+  title   = {{VARGPT-v1.1}: Improve Visual Autoregressive Large Unified Model via Iterative Instruction Tuning and Reinforcement Learning},
+  author  = {Zhuang, Xianwei and Xie, Yuxin and Deng, Yufan and Liang, Liming and Ru, Jinghan and Yin, Yuguo and Zou, Yuexian},
+  journal = {arXiv preprint arXiv:2504.02949},
+  year    = {2025},
+  eprint        = {2504.02949},
+  archivePrefix = {arXiv}
+}
+
+@article{tian2025unigen,
+  title   = {{UniGen}: Enhanced Training and Test-Time Strategies for Unified Multimodal Understanding and Generation},
+  author  = {Tian, Rui and Gao, Mingfei and Xu, Mingze and Hu, Jiaming and Lu, Jiasen and Wu, Zuxuan and Yang, Yinfei and Dehghan, Afshin},
+  journal = {arXiv preprint arXiv:2505.14682},
+  year    = {2025},
+  eprint        = {2505.14682},
+  archivePrefix = {arXiv}
+}
+
+@article{liao2025mogao,
+  title   = {{Mogao}: An Omni Foundation Model for Interleaved Multi-Modal Generation},
+  author  = {Liao, Chao and Liu, Liyang and Wang, Xun and Luo, Zhengxiong and Zhang, Xinyu and Zhao, Wenliang and Wu, Jie and Li, Liang and Tian, Zhi and Huang, Weilin},
+  journal = {arXiv preprint arXiv:2505.05472},
+  year    = {2025},
+  eprint        = {2505.05472},
+  archivePrefix = {arXiv}
+}
+
+@article{deng2025bagel,
+  title   = {Emerging Properties in Unified Multimodal Pretraining},
+  author  = {Deng, Chaorui and Zhu, Deyao and Li, Kunchang and Gou, Chenhui and Li, Feng and Wang, Zeyu and Zhong, Shu and Yu, Weihao and Nie, Xiaonan and Song, Ziang and Shi, Guang and Fan, Haoqi},
+  journal = {arXiv preprint arXiv:2505.14683},
+  year    = {2025},
+  eprint        = {2505.14683},
+  archivePrefix = {arXiv}
+}
+
+@article{wu2025omnigen2,
+  title   = {{OmniGen2}: Exploration to Advanced Multimodal Generation},
+  author  = {Wu, Chenyuan and Zheng, Pengfei and Yan, Ruiran and Xiao, Shitao and Luo, Xin and Wang, Yueze and Li, Wanli and Jiang, Xiyan and Liu, Yexin and Zhou, Junjie and Xia, Ziyi and Liu, Ze and Li, Chaofan and Deng, Haoge and Wang, Jiahao and Luo, Kun and Zhang, Bo and Lian, Defu and Wang, Xinlong and Wang, Zhongyuan and Huang, Tiejun and Liu, Zheng},
+  journal = {arXiv preprint arXiv:2506.18871},
+  year    = {2025},
+  eprint        = {2506.18871},
+  archivePrefix = {arXiv}
+}
+
+@article{wang2025ovisu1,
+  title   = {{Ovis-U1} Technical Report},
+  author  = {Wang, Guo-Hua and Zhao, Shanshan and Zhang, Xinjie and Cao, Liangfu and Zhan, Pengxin and Duan, Lunhao and Lu, Shiyin and Fu, Minghao and Chen, Xiaohao and Zhao, Jianshan and Li, Yang and Chen, Qing-Guo},
+  journal = {arXiv preprint arXiv:2506.23044},
+  year    = {2025},
+  eprint        = {2506.23044},
+  archivePrefix = {arXiv}
+}
+
+@article{xu2025pisces,
+  title   = {Pisces: An Auto-regressive Foundation Model for Image Understanding and Generation},
+  author  = {Xu, Zhiyang and Chen, Jiuhai and Lin, Zhaojiang and Pan, Xichen and Huang, Lifu and Zhou, Tianyi and Khabsa, Madian and Wang, Qifan and Jin, Di and Yasunaga, Michihiro and Yu, Lili and Lin, Xi Victoria and Nie, Shaoliang},
+  journal = {arXiv preprint arXiv:2506.10395},
+  year    = {2025},
+  eprint        = {2506.10395},
+  archivePrefix = {arXiv}
+}
+
+@article{lin2025uniworld,
+  title   = {{UniWorld-V1}: High-Resolution Semantic Encoders for Unified Visual Understanding and Generation},
+  author  = {Lin, Bin and Li, Zongjian and Cheng, Xinhua and Niu, Yuwei and Ye, Yang and He, Xianyi and Yuan, Shenghai and Yu, Wangbo and Wang, Shaodong and Ge, Yunyang and Pang, Yatian and Yuan, Li},
+  journal = {arXiv preprint arXiv:2506.03147},
+  year    = {2025},
+  eprint        = {2506.03147},
+  archivePrefix = {arXiv}
+}
+
+@article{wang2025skyworkunipic,
+  title   = {Skywork {UniPic}: Unified Autoregressive Modeling for Visual Understanding and Generation},
+  author  = {Wang, Peiyu and Peng, Yi and Gan, Yimeng and Hu, Liang and Xie, Tianyidan and Wang, Xiaokun and Wei, Yichen and Tang, Chuanxin and Zhu, Bo and Li, Changshi and Wei, Hongyang and Li, Eric and Song, Xuchen and Liu, Yang and Zhou, Yahui},
+  journal = {arXiv preprint arXiv:2508.03320},
+  year    = {2025},
+  eprint        = {2508.03320},
+  archivePrefix = {arXiv}
+}
+
+@article{wei2025skyworkunipic2,
+  title   = {Skywork {UniPic} 2.0: Building Kontext Model with Online {RL} for Unified Multimodal Model},
+  author  = {Wei, Hongyang and Wang, Peiyu and Peng, Yi and Xie, Tianyidan and Wang, Xiaokun and Tang, Chuanxin and Li, Changshi and Zhu, Bo and Liu, Yang and Zhou, Yahui},
+  journal = {arXiv preprint arXiv:2509.04548},
+  year    = {2025},
+  eprint        = {2509.04548},
+  archivePrefix = {arXiv}
+}
+
+@article{wang2025lightfusion,
+  title   = {{LightFusion}: A Light-weighted, Double Fusion Framework for Unified Multimodal Understanding and Generation},
+  author  = {Wang, Zeyu and Chen, Zilong and Gou, Chenhui and Li, Feng and Deng, Chaorui and Zhu, Deyao and Li, Kunchang and Yu, Weihao and Tu, Haoqin and Fan, Haoqi and Xie, Cihang},
+  journal = {arXiv preprint arXiv:2510.22946},
+  year    = {2025},
+  eprint        = {2510.22946},
+  archivePrefix = {arXiv}
+}
+
+@article{tian2025unigen15,
+  title   = {{UniGen-1.5}: Enhancing Image Generation and Editing through Reward Unification in Reinforcement Learning},
+  author  = {Tian, Rui and Gao, Mingfei and Gang, Haiming and Lu, Jiasen and Gan, Zhe and Yang, Yinfei and Wu, Zuxuan and Dehghan, Afshin},
+  journal = {arXiv preprint arXiv:2511.14760},
+  year    = {2025},
+  eprint        = {2511.14760},
+  archivePrefix = {arXiv}
+}
+
+%==============================================================
+% Subsection: Concatenation and Stacking
+%==============================================================
+
+@article{huang2025illumeplus,
+  title   = {{ILLUME+}: Illuminating Unified {MLLM} with Dual Visual Tokenization and Diffusion Refinement},
+  author  = {Huang, Runhui and Wang, Chunwei and Yang, Junwei and Lu, Guansong and Yuan, Yunlong and Han, Jianhua and Hou, Lu and Zhang, Wei and Hong, Lanqing and Zhao, Hengshuang and Xu, Hang},
+  journal = {arXiv preprint arXiv:2504.01934},
+  year    = {2025},
+  eprint        = {2504.01934},
+  archivePrefix = {arXiv}
+}
+
+@article{jiao2025unitoken,
+  title   = {{UniToken}: Harmonizing Multimodal Understanding and Generation through Unified Visual Encoding},
+  author  = {Jiao, Yang and Qiu, Haibo and Jie, Zequn and Chen, Shaoxiang and Chen, Jingjing and Ma, Lin and Jiang, Yu-Gang},
+  journal = {arXiv preprint arXiv:2504.04423},
+  year    = {2025},
+  eprint        = {2504.04423},
+  archivePrefix = {arXiv}
+}
+
+@article{he2025emma,
+  title   = {{EMMA}: Efficient Multimodal Understanding, Generation, and Editing with a Unified Architecture},
+  author  = {He, Xin and Wei, Longhui and Ouyang, Jianbo and Liao, Minghui and Xie, Lingxi and Tian, Qi},
+  journal = {arXiv preprint arXiv:2512.04810},
+  year    = {2025},
+  eprint        = {2512.04810},
+  archivePrefix = {arXiv}
+}
+
+%==============================================================
+% Subsection: Fusion and Merging
+%==============================================================
+
+@article{xie2024musevl,
+  title   = {{MUSE-VL}: Modeling Unified {VLM} through Semantic Discrete Encoding},
+  author  = {Xie, Rongchang and Du, Chen and Song, Ping and Liu, Chang},
+  journal = {arXiv preprint arXiv:2411.17762},
+  year    = {2024},
+  eprint        = {2411.17762},
+  archivePrefix = {arXiv}
+}
+
+@article{qu2024tokenflow,
+  title   = {{TokenFlow}: Unified Image Tokenizer for Multimodal Understanding and Generation},
+  author  = {Qu, Liao and Zhang, Huichao and Liu, Yiheng and Wang, Xu and Jiang, Yi and Gao, Yiming and Ye, Hu and Du, Daniel K. and Yuan, Zehuan and Wu, Xinglong},
+  journal = {arXiv preprint arXiv:2412.03069},
+  year    = {2024},
+  eprint        = {2412.03069},
+  archivePrefix = {arXiv}
+}
+
+@article{chen2025semhitok,
+  title   = {{SemHiTok}: A Unified Image Tokenizer via Semantic-Guided Hierarchical Codebook for Multimodal Understanding and Generation},
+  author  = {Chen, Zisheng and Liu, Chunwei and Zhang, Wenhui and Liu, Yuyao and Wang, Yawei and Tu, Zhuowen},
+  journal = {arXiv preprint arXiv:2503.06764},
+  year    = {2025},
+  eprint        = {2503.06764},
+  archivePrefix = {arXiv}
+}
