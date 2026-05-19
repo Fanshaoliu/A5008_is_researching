@@ -1,3 +1,130 @@
-
+%% discrete.tex
+%% Chapter: Discrete Architectures for Unified Multimodal Large Language Models.
+%% Designed to be \input{} into a master ACM acmart manuscript.
+%% Bibliography file: discrete.bib
 
 \section{Discrete Architectures}
+\label{sec:discrete}
+
+\subsection{Motivation: Why Discrete?}
+\label{subsec:discrete-motivation}
+
+Unified multimodal large language models (MLLMs) seek a single training objective and a single inference stack for both visual understanding and visual generation. The discrete route maps images and videos into finite token sequences---typically via vector quantization (VQ) or lookup-free quantization---and trains a decoder-only transformer with standard next-token cross-entropy, exactly as in text-only large language models. Chameleon~\cite{team2024chameleon} established the early-fusion template: from the first layer onward, text and image tokens share weights, which enables native interleaved generation without stitching a CLIP encoder to a diffusion decoder.
+
+The discrete paradigm offers three practical advantages. First, it reuses mature LLM infrastructure---data packing, distributed training, instruction tuning, and reinforcement learning---without maintaining a separate diffusion software stack. Second, it represents all modalities in a single vocabulary, which simplifies task formatting and multi-turn dialogue. Third, masked discrete diffusion variants can parallelize image token prediction and thereby avoid the thousand-step autoregressive bottleneck that pure early-fusion models face at high resolution.
+
+The price is representational. Quantization compresses pixels into a codebook, which discards fine-grained cues and caps comprehension relative to continuous CLIP-driven VLMs, as hybrid architectures in Chapter~\ref{sec:hybrid} explicitly address. Recent work therefore attacks the bottleneck along four complementary axes: scaling native autoregressive pretraining, replacing or augmenting causal image decoding with masked diffusion, co-designing tokenizers for dual semantic and pixel objectives, and accelerating inference through parallel unmasking or consistency distillation. Section~\ref{subsec:discrete-taxonomy} organizes these efforts into five families; the remainder of this chapter examines each family and closes with a cross-cutting comparison.
+
+\subsection{A Taxonomy of Discrete Designs}
+\label{subsec:discrete-taxonomy}
+
+We organize discrete architectures into five families, ordered from pure autoregressive unification to inference acceleration.
+
+\begin{itemize}
+    \item \textbf{Early-Fusion Autoregressive Unification} treats text, image, and video tokens as a single stream and optimizes strict next-token prediction throughout~\cite{team2024chameleon,chern2024anole,liu2024lumina,wang2024emu3,cui2025emu3,wu2025vila,han2026vision}.
+    \item \textbf{Masked Discrete Diffusion} corrupts visual (and sometimes textual) tokens with a mask symbol and trains a bidirectional predictor to denoise them in parallel~\cite{xie2025show,yang2026mmada,shi2025muddit,xin2025lumina}.
+    \item \textbf{Discrete Tokenizer Co-Design} engineers the visual codebook so that the same discrete ids support both reconstruction and language-aligned understanding~\cite{wu2025vila,ma2026unitok,han2026vision}.
+    \item \textbf{Efficient Discrete Backbones} keeps the NTP objective but reshapes the transformer to cut sequence length or resolve task conflicts~\cite{li2025synergen,li2025unifork}.
+    \item \textbf{Accelerated Discrete Inference} distills or adapts a trained discrete model for few-step parallel generation without retraining the tokenizer~\cite{xu2025unicms,cui2025emu3,xin2025lumina}.
+\end{itemize}
+
+The five families differ in \emph{where} discreteness binds the system: the tokenizer vocabulary, the forward pass (causal versus masked), the backbone topology, or the sampling schedule at inference. Each choice trades training simplicity, comprehension accuracy, generation fidelity, and decoding latency; we examine these trade-offs in turn.
+
+\subsection{Early-Fusion Autoregressive Unification}
+\label{subsec:early-fusion}
+
+Early-fusion autoregressive models commit fully to causal next-token prediction on a unified discrete vocabulary. They inherit the scaling laws and alignment recipes of text LLMs and extend them to pixels with minimal architectural novelty beyond an expanded embedding table and a vision tokenizer.
+
+\subsubsection{Foundational Early-Fusion Models}
+\label{subsubsec:chameleon-line}
+
+Chameleon~\cite{team2024chameleon} quantizes $512\times512$ images into 1,024 tokens from an 8,192-entry codebook and merges them with a 65,536-token BPE vocabulary. The model pre-trains on roughly ten trillion mixed-modality tokens, including interleaved web documents, and stabilizes 7B--34B scales with query--key normalization and revised norm placement to curb logit drift. On static VQA and captioning benchmarks, Chameleon-34B matches or exceeds contemporary VLMs, and in human studies on interleaved prompts it wins a majority of pairwise comparisons against augmented GPT-4V and Gemini pipelines. The open release, however, omits native image generation; Anole~\cite{chern2024anole} unlocks that capability by fine-tuning only the output logits for image token ids on fewer than six thousand LAION art images, training under forty million parameters for thirty minutes while keeping the backbone frozen.
+
+\subsubsection{Scaling Native Next-Token Prediction}
+\label{subsubsec:ntp-scale}
+
+Subsequent systems scale the same recipe with stronger tokenizers, longer contexts, and richer post-training. Emu3~\cite{wang2024emu3} trains an 8B Llama-2-style decoder from scratch on a 32,768-entry visual codebook with $4\times8\times8$ spatiotemporal compression, supports 131,072-token contexts for video, and applies modality-weighted cross-entropy plus DPO on visual preferences; it matches SDXL and DALL-E~3 on GenEval while approaching LLaVA-1.6 on understanding benchmarks. Emu3.5~\cite{cui2025emu3} pushes to 34.1B parameters and 13 trillion multimodal tokens, quarters the per-image token count via improved integrated binary quantization, and adds optional diffusion decoders for high-fidelity stills and video keyframes; reinforcement learning with multimodal rewards further stabilizes long-horizon interleaved generation.
+
+Lumina-mGPT~\cite{liu2024lumina} instead bootstraps Chameleon weights and introduces Uni-Rep layout markers---height and width indicators plus end-of-line tokens---so variable-resolution images remain unambiguous in a flattened sequence. Flexible progressive supervised fine-tuning climbs from $512^2$ to $1024^2$ resolution, after which omnipotent fine-tuning folds editing, depth estimation, and spatial conditioning into the same NTP interface. VILA-U~\cite{wu2025vila} and Tar~\cite{han2026vision} demonstrate that early fusion need not sacrifice understanding: VILA-U binds contrastive and reconstruction losses inside a residual-quantization tower, while Tar initializes its text-aligned codebook from frozen LLM embeddings and routes generation through lightweight de-tokenizers. Together, these lines show that discrete NTP can reach diffusion-class generation quality when tokenizer design and training curriculum co-evolve with the language backbone.
+
+\subsection{Masked Discrete Diffusion}
+\label{subsec:masked-diffusion}
+
+Pure autoregressive image decoding issues one forward pass per visual token, which becomes prohibitive when a single frame requires thousands of codes. Masked discrete diffusion replaces sequential causal decoding with iterative parallel unmasking: the model starts from an all-mask image field and refines predictions over a small number of steps while text may remain autoregressive or semi-autoregressive.
+
+\subsubsection{Autoregressive--Diffusion Hybrids}
+\label{subsubsec:showo-line}
+
+Show-o~\cite{xie2025show} keeps the motivating question explicit: can one transformer combine autoregressive text with diffusion-style image modeling? Text tokens use causal attention; image tokens use full bidirectional attention under a MaskGIT-style discrete diffusion objective with a unified MAGVIT-v2 vocabulary of 8,192 codes. Task-specific prompt tokens separate multimodal understanding, text-to-image synthesis, and inpainting within the same backbone. Show-o needs roughly twenty times fewer sampling steps than token-by-token autoregressive generators at comparable resolution, and ablations confirm that feeding continuous CLIP features only during understanding boosts VQA accuracy---a trade-off between strict token unification and comprehension performance that later discrete systems revisit through tokenizer co-design.
+
+\subsubsection{Fully Diffusion-Centric Language Models}
+\label{subsubsec:full-diffusion}
+
+A second wave removes causal image decoding entirely. MMaDA~\cite{yang2026mmada} formulates both text and images as parallel masked-token prediction under a single cross-entropy loss on corrupted positions, then aligns reasoning with mixed long chain-of-thought fine-tuning and UniGRPO reinforcement learning across textual, multimodal, and generative rewards. Muddit~\cite{shi2025muddit} anchors on a pretrained Meissonic visual backbone with a shared MM-DiT generator and a lightweight text decoder, applying identical absorbing-state diffusion to text-to-image, image-to-text, and VQA with only the conditioning signal changing; joint training proves critical, as isolating captioning collapses GenEval scores. Lumina-DiMOO~\cite{xin2025lumina} initializes from the LLaDA discrete diffusion language model, merges text and aMUSED-VQ visual tokens with end-of-line layout markers, and trains through four stages culminating in Self-GRPO; it reaches 88\% on GenEval and reports $32\times$ faster text-to-image sampling than Lumina-mGPT-class autoregressive baselines.
+
+These models converge on a shared insight: bidirectional attention over masked visual tokens decouples generation quality from autoregressive depth, at the cost of a non-standard training and inference schedule relative to stock LLM tooling. Hybrid architectures in Chapter~\ref{sec:hybrid} often retain discrete generation while reintroducing continuous streams for understanding; the fully diffusion-centric family here pushes discreteness to both tasks inside one masked objective.
+
+\subsection{Discrete Tokenizer Co-Design}
+\label{subsec:tokenizer-codesign}
+
+Tokenizer quality bounds every discrete MLLM. A codebook trained only for pixel reconstruction yields sharp generations but weak VQA scores; a CLIP-quantized codebook aligns with language yet may lack a native decoder. Co-design methods supervise the tokenizer for both objectives before or during LLM training.
+
+VILA-U~\cite{wu2025vila} initializes encoders from SigLIP, freezes the text tower, and sums contrastive and reconstruction losses so residual-quantization codes remain semantically grounded while staying decodable; the depth transformer then predicts stacked sub-codes autoregressively at each spatial location. UniTok~\cite{ma2026unitok} diagnoses the real bottleneck as representational capacity rather than loss conflict: channel compression and small monolithic codebooks dominate the error. Multi-codebook quantization splits the latent vector across parallel sub-codebooks---expanding effective vocabulary exponentially without giant single codebooks---while attention projection replaces linear factorization to preserve semantics; integrated into LlamaGen, UniTok cuts CFG-free generation FID from 14.65 to 2.51. Tar~\cite{han2026vision} goes further by initializing the visual codebook from top-$k$ LLM token embeddings, using scale-adaptive pooling to emit 81--729 tokens per image, and discarding a lightweight decoder after SigLIP supervision; generative de-tokenizers (autoregressive or diffusion) translate semantic codes to pixels at inference.
+
+Across these works, the design knobs are codebook factorization, semantic versus pixel loss weighting, and whether visual tokens literally live in the LLM embedding table. Models that align codes with language space before backbone training consistently narrow the historical gap between discrete unified models and continuous VLMs on MME, TextVQA, and GQA.
+
+\subsection{Efficient Discrete Backbones}
+\label{subsec:efficient-backbone}
+
+Even with a strong tokenizer, feeding thousands of visual tokens per image strains context length and perturbs pretrained language representations. Efficiency-focused discrete models keep the NTP objective but compress sequences or fork parameters late in the network.
+
+SynerGen-VL~\cite{li2025synergen} builds on InternLM2-1.8B and Emu3's discrete tokenizer, introduces vision-specific feed-forward experts so text FFNs stay intact, and folds $2\times8$ patch groups to cut sequence length sixteenfold; a shallow causal head unfolds compressed states back to full VQ codes for decoding. With only 2.4B active parameters, it matches Janus-1.3B on GenEval (0.61) and surpasses Emu3-Chat-8B on OCR-heavy benchmarks. UniFork~\cite{li2025unifork} instead analyzes modality-alignment curves and finds that understanding prefers monotonically increasing text--image coupling depth whereas generation needs a rise-then-fall pattern; a Y-shaped transformer shares shallow layers and forks into understanding and generation branches, then fine-tunes each branch separately during stage-three SFT to avoid manual data-ratio tuning. On MME-P and GenEval, UniFork outperforms larger fully shared models like Show-o despite a 0.5B active understanding footprint.
+
+These backbones show that discrete unification does not require brute-force context expansion: structural routing can preserve language priors while still emitting decodable visual codes.
+
+\subsection{Accelerated Discrete Inference}
+\label{subsec:accel-inference}
+
+Training improvements do not automatically fix slow autoregressive sampling. Acceleration methods treat a trained discrete model as a teacher and learn or adapt few-step decoders.
+
+UniCMs~\cite{xu2025unicms} distill Show-o into a consistency model that maps arbitrary points on masked image trajectories and parallel-refined text trajectories directly to endpoints, achieving competitive GenEval scores in two to four steps---about one-eighth the sampling time of Stable Diffusion~3---and a $1.5\times$ speedup on long text decoding for multimodal understanding. Emu3.5's Discrete Diffusion Adaptation (DiDA)~\cite{cui2025emu3} retrofits the autoregressive checkpoint into a bidirectional block-wise visual predictor, yielding roughly $20\times$ faster image generation without quality loss. Lumina-DiMOO's Max Logit-based Cache~\cite{xin2025lumina} exploits stable high-confidence tokens across refinement steps to reuse keys, values, and logits, doubling inference speed with no retraining.
+
+Acceleration families differ in whether they require continued training (UniCMs), inference-time schedule change (DiDA), or cache reuse (ML-Cache). All three assume a strong discrete teacher; weak tokenizers still cap the accelerated student's ceiling.
+
+\subsection{Cross-Cutting Comparison}
+\label{subsec:discrete-comparison}
+
+Table~\ref{tab:discrete-compare} summarizes the five discrete families along four axes: decoding paradigm, tokenizer emphasis, primary efficiency lever, and headline trade-off. Three patterns emerge. First, comprehension and generation both improve when semantic alignment enters the tokenizer early, whether through contrastive loss (VILA-U), multi-codebook capacity (UniTok), or LLM-embedding initialization (Tar). Second, masked diffusion trades infrastructure familiarity for parallel visual decoding; fully diffusion-centric models (MMaDA, Lumina-DiMOO) lead GenEval-style compositional benchmarks, while early-fusion AR models (Emu3.5, Chameleon) excel at native interleaving and long video contexts. Third, efficiency techniques stack: token folding and expert FFNs shrink training cost, while consistency distillation, DiDA, and caching shrink deployment latency without abandoning discrete representations.
+
+\begin{table}[t]
+  \caption{Cross-family comparison of discrete architectures. ``AR'' denotes autoregressive decoding; ``Mask'' denotes masked discrete diffusion. Tok.\ column marks tokenizer emphasis: pixel (P), semantic (S), or joint (J).}
+  \label{tab:discrete-compare}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{0.20\linewidth}p{0.14\linewidth}p{0.12\linewidth}p{0.18\linewidth}p{0.22\linewidth}@{}}
+    \toprule
+    Family & Decode & Tok. & Efficiency & Trade-off \\
+    \midrule
+    Early-Fusion AR      & AR causal       & P/J & Long context, NTP scale & Slow image sampling \\
+    Masked Diffusion     & Mask parallel   & S   & Few-step unmasking      & Non-LLM-native schedule \\
+    Tokenizer Co-Design  & AR or Mask      & J   & Better und.\ per token  & Heavier tokenizer train \\
+    Efficient Backbone   & AR (+ unfold)   & P   & Fold / fork branches    & Extra heads or params \\
+    Accelerated Inference& Teacher-dependent & --- & 2--20$\times$ faster   & Bounded by teacher quality \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Open Problems and Outlook}
+\label{subsec:discrete-outlook}
+
+Discrete architectures have proven that a single token interface can support understanding, generation, editing, and interleaved world modeling, yet several questions remain open.
+
+\textbf{End-to-end tokenizer--LLM co-training.} Most systems still pre-train the vision tokenizer offline and freeze it during LLM training, which misaligns evolving language priors with a static codebook. Tar and UniTok hint that co-evolving embeddings helps, but stable joint optimization at billion-token scale remains underexplored.
+
+\textbf{Unified evaluation of discrete comprehension.} Discrete models report strong VQA and MME scores yet lag continuous VLMs on fine-grained OCR and chart reasoning; benchmarks that stress codebook-limited detail will clarify when tokenizer capacity, not backbone size, is the binding constraint.
+
+\textbf{Composing acceleration with co-designed tokenizers.} DiDA and UniCMs assume fixed teachers; pairing parallel decoders with multi-codebook tokenizers may unlock faster sampling without the comprehension penalty of early purely pixel-VQ systems.
+
+The discrete agenda reframes unified MLLMs as a vocabulary-design problem first and a scaling problem second. As tokenizers gain semantic capacity and decoders gain parallelism, discrete architectures remain the most direct path to reusing the entire LLM ecosystem for multimodal intelligence.
+
+%% End of \section{Discrete Architectures}
