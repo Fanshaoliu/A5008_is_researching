@@ -1,0 +1,382 @@
+%% training.bib
+%% Bibliography for: Efficient Training of Multimodal Large Language Models.
+
+%==============================================================
+% Baselines and foundational MLLMs referenced for context
+%==============================================================
+
+@misc{Liu202304828,
+  author       = {Haotian Liu and Chunyuan Li and Qingyang Wu and Yong Jae Lee},
+  title        = {Visual Instruction Tuning},
+  year         = {2023},
+  eprint       = {2304.08485},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2304.08485},
+}
+
+@misc{Liu202310999,
+  author       = {Haotian Liu and Chunyuan Li and Yuheng Li and Yong Jae Lee},
+  title        = {Improved Baselines with Visual Instruction Tuning},
+  year         = {2023},
+  eprint       = {2310.03744},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2310.03744},
+}
+
+@misc{Chen202413948,
+  author       = {Zhe Chen and Weiyun Wang and Hao Tian and Shenglong Ye and Zhangwei Gao and Erfei Cui and Wenwen Tong and Kongzhi Hu and Jiapeng Luo and Zheng Ma and Ji Ma and Jiaqi Wang and Xiaoyi Dong and Hang Yan and Hewei Guo and Conghui He and Botian Shi and Zhenjiang Jin and Chao Xu and Bin Wang and Xingjian Wei and Wei Li and Wenjian Zhang and Bo Zhang and Pinlong Cai and Licheng Wen and Xiangchao Yan and Min Dou and Lewei Lu and Xizhou Zhu and Tong Lu and Dahua Lin and Yu Qiao and Jifeng Dai and Wenhai Wang},
+  title        = {How Far Are We to GPT-4V? Closing the Gap to Commercial VLMs with Open-Source Suites},
+  year         = {2024},
+  eprint       = {2404.16821},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2404.16821},
+}
+
+@misc{Dubey202407911,
+  author       = {Abhimanyu Dubey and Abhinav Jauhri and Abhinav Pandey and Abhishek Kadian and Ahmad Al-Dahle and Aiesha Letman and Akhil Mathur and Alan Schelten and Amy Yang and Angela Fan and others},
+  title        = {The {Llama} 3 Herd of Models},
+  year         = {2024},
+  eprint       = {2407.21783},
+  primaryClass = {cs.AI},
+  url          = {https://arxiv.org/abs/2407.21783},
+}
+
+%==============================================================
+% Efficiency-Oriented Pretraining
+%==============================================================
+
+@misc{Laurençon202402246,
+  author       = {Hugo Laurençon and Léo Tronchon and Matthieu Cord and Victor Sanh},
+  title        = {What matters when building vision-language models?},
+  year         = {2024},
+  eprint       = {2405.02246},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2405.02246},
+}
+
+@misc{Alayrac202204228,
+  author       = {Jean-Baptiste Alayrac and Jeff Donahue and Pauline Luc and Antoine Miech and Iain Barr and Yana Hasson and Karel Lenc and Arthur Mensch and Katie Millican and Malcolm Reynolds and Roman Ring and Eliza Rutherford and Serkan Cabi and Tengda Han and Jean-Baptiste Gontier and Mantas Pajarskas and Vinh Tran and Zizhao Zhang and Olivier Hénaff and Ignacio Ramirez and others},
+  title        = {Flamingo: a Visual Language Model for Few-Shot Learning},
+  year         = {2022},
+  eprint       = {2204.14198},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2204.14198},
+}
+
+@misc{Laurençon202309462,
+  author       = {Hugo Laurençon and Lucile Saulnier and Léo Tronchon and Stas Bekman and Amanpreet Singh and Anton Lozhkov and Thomas Wang and Siddharth Karamcheti and Alexander M. Rush and Douwe Kiela and Matthieu Cord and Victor Sanh},
+  title        = {{OBELICS}: An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents},
+  year         = {2023},
+  eprint       = {2306.16527},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2306.16527},
+}
+
+@misc{Zhou202402289,
+  author       = {Baichuan Zhou and Ying Hu and Xi Weng and Junlong Jia and Jie Luo and Xien Liu and Ji Wu and Lei Huang},
+  title        = {{TinyLLaVA}: A Framework of Small-scale Large Multimodal Models},
+  year         = {2024},
+  eprint       = {2402.14289},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2402.14289},
+}
+
+@misc{Chen202311972,
+  author       = {Lin Chen and Jisong Li and Xiaoyi Dong and Pan Zhang and Conghui He and Jiaqi Wang and Feng Zhao and Dahua Lin},
+  title        = {{ShareGPT4V}: Improving Large Multi-Modal Models with Better Captions},
+  year         = {2023},
+  eprint       = {2311.12793},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2311.12793},
+}
+
+@misc{Lin202312533,
+  author       = {Ji Lin and Hongxu Yin and Wei Ping and Yao Lu and Pavlo Molchanov and Andrew Tao and Huizi Mao and Jan Kautz and Mohammad Shoeybi and Song Han},
+  title        = {{VILA}: On Pre-training for Visual Language Models},
+  year         = {2023},
+  eprint       = {2312.07533},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2312.07533},
+}
+
+@misc{Zhu202304341,
+  author       = {Wanrong Zhu and Jack Hessel and Anas Awadalla and Samir Yitzhak Gadre and Jesse Dodge and Alex Fang and Youngjae Yu and Ludwig Schmidt and William Yang Wang and Yejin Choi},
+  title        = {Multimodal {C4}: An Open, Billion-scale Corpus of Images Interleaved with Text},
+  year         = {2023},
+  eprint       = {2304.06939},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2304.06939},
+}
+
+@misc{Chu202312539,
+  author       = {Xiangxiang Chu and Limeng Qiao and Xinyang Lin and Shuang Xu and Yang Yang and Yiming Hu and Fei Wei and Xinyu Zhang and Bo Zhang and Xiaolin Wei and Chunhua Shen},
+  title        = {{MobileVLM}: A Fast, Reproducible and Strong Vision Language Assistant for Mobile Devices},
+  year         = {2023},
+  eprint       = {2312.16886},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2312.16886},
+}
+
+@misc{Chu202401130,
+  author       = {Xiangxiang Chu and Limeng Qiao and Xinyu Zhang and Shuang Xu and Fei Wei and Yang Yang and Xiaofei Sun and Yiming Hu and Xinyang Lin and Bo Zhang and Chunhua Shen},
+  title        = {{MobileVLM V2}: Faster and Stronger Baseline for Vision Language Model},
+  year         = {2024},
+  eprint       = {2402.03766},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2402.03766},
+}
+
+@misc{Zhu202401101,
+  author       = {Yichen Zhu and Minjie Zhu and Ning Liu and Zhicai Ou and Xiaofeng Mou and Jian Tang},
+  title        = {{LLaVA-Phi}: Efficient Multi-Modal Assistant with Small Language Model},
+  year         = {2024},
+  eprint       = {2401.02330},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2401.02330},
+}
+
+@misc{He202402116,
+  author       = {Minju He and Yifei Min and Junjie Xiong and Aisong Liu and Menglin Jia and Kai Chen},
+  title        = {{Bunny}: A Family of Lightweight Multimodal Models},
+  year         = {2024},
+  eprint       = {2402.11530},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2402.11530},
+}
+
+%==============================================================
+% Efficient Instruction Fine-Tuning
+%==============================================================
+
+@misc{Luo202315023,
+  author       = {Gen Luo and Yiyi Zhou and Tianhe Ren and Shengxin Chen and Xiaoshuai Sun and Rongrong Ji},
+  title        = {Cheap and Quick: Efficient Vision-Language Instruction Tuning for Large Language Models},
+  year         = {2023},
+  eprint       = {2305.15023},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2305.15023},
+}
+
+@misc{Wen202403447,
+  author       = {Wenqiao Zhang and Tianwei Lin and Haoyuan Li and Zheqi Lv and Yuqing Liu and Juncheng Li and Siliang Tang and Yueting Zhuang},
+  title        = {{HyperLLaVA}: Dynamic Visual Expert with Hyper-Networks},
+  year         = {2024},
+  eprint       = {2403.13447},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2403.13447},
+}
+
+@misc{Zhang202302301,
+  author       = {Renrui Zhang and Jiaming Han and Chris Liu and Peng Gao and Aojun Zhou and Xiangfei Hu and Siyuan Huang and Jifeng Dai and Hongsheng Li and Yu Qiao},
+  title        = {{LLaMA-Adapter}: Efficient Fine-tuning of Language Models with Zero-init Attention},
+  year         = {2023},
+  eprint       = {2303.16199},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2303.16199},
+}
+
+@misc{Gao202303747,
+  author       = {Peng Gao and Jiaming Han and Renrui Zhang and Ziyi Lin and Shijie Geng and Aojun Zhou and Wei Zhang and Pan Lu and Conghui He and Xiangyu Yue and Hongsheng Li and Yu Qiao},
+  title        = {{LLaMA-Adapter V2}: Parameter-Efficient Visual Instruction Model},
+  year         = {2023},
+  eprint       = {2304.15010},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2304.15010},
+}
+
+@misc{Dai202305519,
+  author       = {Wenliang Dai and Junnan Li and Dongxu Li and Anthony Meng Huat Tiong and Junqi Zhao and Weisheng Wang and Boyang Li and Pascale Fung and Steven Hoi},
+  title        = {{InstructBLIP}: Towards General-purpose Vision-Language Models with Instruction Tuning},
+  year         = {2023},
+  eprint       = {2305.06500},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2305.06500},
+}
+
+@misc{Li202306943,
+  author       = {Bo Li and Yuanhan Zhang and Liangyu Chen and Jinghao Wang and Jingkang Yang and Ziwei Liu},
+  title        = {{Otter}: A Multi-Modal Model with In-Context Instruction Tuning},
+  year         = {2023},
+  eprint       = {2305.03726},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2305.03726},
+}
+
+%==============================================================
+% Rethinking Training Stages
+%==============================================================
+
+@misc{Gao202402935,
+  author       = {Peng Gao and Renrui Zhang and Chris Liu and Longtian Qiu and Siyuan Huang and Weifeng Lin and Shitian Zhao and Shijie Geng and Ziyi Lin and Peng Jin and Kaipeng Zhang and Wenqi Shao and Chao Xu and Conghui He and Junjun He and Hao Shao and Pan Lu and Hongsheng Li and Yu Qiao},
+  title        = {{SPHINX-X}: Scaling Data and Parameters for a Family of Multi-modal Large Language Models},
+  year         = {2024},
+  eprint       = {2402.05935},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2402.05935},
+}
+
+@misc{Lin202310250,
+  author       = {Ziyi Lin and Chris Liu and Renrui Zhang and Peng Gao and Longtian Qiu and Han Xiao and Han Qiu and Chen Lin and Wenqi Shao and Keqin Chen and Jiaming Han and Siyuan Huang and Yichi Zhang and Xuming He and Hongsheng Li and Yu Qiao},
+  title        = {{SPHINX}: The Joint Mixing of Weights, Tasks, and Visual Embeddings for Multi-modal Large Language Models},
+  year         = {2023},
+  eprint       = {2311.07575},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2311.07575},
+}
+
+@misc{Zhao202403520,
+  author       = {Han Zhao and Min Zhang and Wei Zhao and Pengxiang Ding and Siteng Huang and Donglin Wang},
+  title        = {Cobra: Extending Mamba to Multi-Modal Large Language Model for Efficient Inference},
+  year         = {2024},
+  eprint       = {2403.14520},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2403.14520},
+}
+
+@misc{Gu202312110,
+  author       = {Albert Gu and Tri Dao},
+  title        = {Mamba: Linear-Time Sequence Modeling with Selective State Spaces},
+  year         = {2023},
+  eprint       = {2312.00752},
+  primaryClass = {cs.LG},
+  url          = {https://arxiv.org/abs/2312.00752},
+}
+
+@misc{Oquab202309896,
+  author       = {Maxime Oquab and Timothée Darcet and Théo Moutakanni and Huy Vo and Marc Szafraniec and Vasil Khalidov and Pierre Fernandez and Daniel Haziza and Francisco Massa and Alaaeldin El-Nouby and Mahmoud Assran and Nicolas Ballas and Wojciech Galuba and Russell Howes and Po-Yao Huang and Shang-Wen Li and Ishan Misra and Michael Rabbat and Vasu Sharma and Gabriel Synnaeve and Hu Xu and Hervé Jégou and Julien Mairal and Patrick Labatut and Armand Joulin and Piotr Bojanowski},
+  title        = {{DINOv2}: Learning Robust Visual Features without Supervision},
+  year         = {2023},
+  eprint       = {2304.07193},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2304.07193},
+}
+
+@misc{Yuan202316862,
+  author       = {Yuan Shu and Ao Zhao and Ling He and Linpu Fang and Zhenfeng Shao and Jie Chen},
+  title        = {{TinyGPT-V}: Efficient Multimodal Large Language Model via Small Backbones},
+  year         = {2023},
+  eprint       = {2312.16862},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2312.16862},
+}
+
+@misc{Li202312048,
+  author       = {Yuanzhi Li and Sébastien Bubeck and Ronen Eldan and Allie Del Giorno and Suriya Gunasekar and Yin Tat Lee},
+  title        = {Textbooks Are All You Need {II}: phi-1.5 technical report},
+  year         = {2023},
+  eprint       = {2309.05463},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2309.05463},
+}
+
+@misc{Sun202303939,
+  author       = {Quan Sun and Yuxin Fang and Ledell Wu and Xinlong Wang and Yue Cao},
+  title        = {{EVA-CLIP}: Improved Training Techniques for {CLIP} at Scale},
+  year         = {2023},
+  eprint       = {2303.15389},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2303.15389},
+}
+
+@misc{Li202301596,
+  author       = {Junnan Li and Dongxu Li and Silvio Savarese and Steven Hoi},
+  title        = {{BLIP-2}: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models},
+  year         = {2023},
+  eprint       = {2301.12597},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2301.12597},
+}
+
+@misc{Zhu202302506,
+  author       = {Deyao Zhu and Jun Chen and Xiaoqian Shen and Xiang Li and Mohamed Elhoseiny},
+  title        = {{MiniGPT-4}: Enhancing Vision-Language Understanding with Advanced Large Language Models},
+  year         = {2023},
+  eprint       = {2304.10592},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2304.10592},
+}
+
+%==============================================================
+% Parameter-Efficient Transfer Learning
+%==============================================================
+
+@misc{Hu202106865,
+  author       = {Edward J. Hu and Yelong Shen and Phillip Wallis and Zeyuan Allen-Zhu and Yuanzhi Li and Shean Wang and Lu Wang and Weizhu Chen},
+  title        = {{LoRA}: Low-Rank Adaptation of Large Language Models},
+  year         = {2021},
+  eprint       = {2106.09685},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2106.09685},
+}
+
+@inproceedings{Jia202201986,
+  author       = {Menglin Jia and Luming Tang and Bor-Chun Chen and Claire Cardie and Serge Belongie and Bharath Hariharan and Ser-Nam Lim},
+  title        = {Visual Prompt Tuning},
+  booktitle    = {ECCV},
+  year         = {2022},
+  eprint       = {2203.12119},
+  url          = {https://arxiv.org/abs/2203.12119},
+}
+
+@misc{Zong202318083,
+  author       = {Zichang Zong and Zhenwei Miao and Wenbo Qin and Wenjie Shi and Yixuan Tang and Guansong Pang and Manyuan Zhang and Quanlong Guan and Xiaodan Liang},
+  title        = {{EAS}: Efficient Adapter and Selector for Multimodal Learning},
+  year         = {2023},
+  eprint       = {2312.12048},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2312.12048},
+}
+
+@misc{Zeng202409752,
+  author       = {Weixian Lei and Yixiao Ge and Kun Yi and Jianfeng Zhang and Ying Shan and Mike Zheng Shou},
+  title        = {{MEMVP}: Memory-Efficient Multi-modal Visual Prompting for Large Vision-Language Models},
+  year         = {2024},
+  eprint       = {2405.09752},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2405.09752},
+}
+
+@misc{Houlsby201902110,
+  author       = {Neil Houlsby and Andrei Giurgiu and Stanislaw Jastrzebski and Bruna Morrone and Quentin de Laroussilhe and Andrea Gesmundo and Mona Attariyan and Sylvain Gelly},
+  title        = {Parameter-Efficient Transfer Learning for {NLP}},
+  year         = {2019},
+  eprint       = {1902.00751},
+  primaryClass = {cs.LG},
+  url          = {https://arxiv.org/abs/1902.00751},
+}
+
+@misc{Zhang202203985,
+  author       = {Qingru Zhang and Minshuo Chen and Alexander Bukharin and Nikos Karampatziakis and Pengcheng He and Yu Cheng and Weizhu Chen and Tuo Zhao},
+  title        = {{AdaLoRA}: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning},
+  year         = {2022},
+  eprint       = {2303.10512},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2303.10512},
+}
+
+@misc{Dettmers202305441,
+  author       = {Tim Dettmers and Artidoro Pagnoni and Ari Holtzman and Luke Zettlemoyer},
+  title        = {{QLoRA}: Efficient Finetuning of Quantized {LLMs}},
+  year         = {2023},
+  eprint       = {2305.14314},
+  primaryClass = {cs.LG},
+  url          = {https://arxiv.org/abs/2305.14314},
+}
+
+@misc{Sung202112227,
+  author       = {Yi-Lin Sung and Jaemin Cho and Mohit Bansal},
+  title        = {{VL-Adapter}: Parameter-Efficient Transfer Learning for Vision-and-Language Tasks},
+  year         = {2021},
+  eprint       = {2112.06825},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2112.06825},
+}
+
+@misc{Ding202312023,
+  author       = {Ning Ding and Xingtai Lv and Qiaosen Wang and Yulin Chen and Bowen Zhou and Zhiyuan Liu and Maosong Sun},
+  title        = {Sparse Low-rank Adaptation of Pre-trained Language Models},
+  year         = {2023},
+  eprint       = {2311.11696},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2311.11696},
+}
