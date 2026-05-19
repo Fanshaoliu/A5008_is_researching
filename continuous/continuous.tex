@@ -1,0 +1,123 @@
+%% continuous.tex
+%% Chapter: Continuous Architectures for Unified Multimodal Large Language Models.
+%% Designed to be \input{} into a master ACM acmart manuscript.
+%% Bibliography file: continuous.bib
+
+\section{Continuous Architectures}
+\label{sec:continuous}
+
+\subsection{Motivation: Why Continuous?}
+\label{subsec:continuous-motivation}
+
+Unified multimodal large language models (MLLMs) must map images, video, and audio into the same representation space that a decoder-only language model consumes. The continuous route keeps sensory input as dense vectors---typically patch embeddings from a contrastive vision encoder, latents from a variational autoencoder, or frame-level features from a spatiotemporal backbone---and bridges them to the LLM through linear projections, query-based pooling, or cross-attention adapters. LLaVA~\cite{liu2023llava} and BLIP-2~\cite{li2023blip2} established this template for understanding; Transfusion~\cite{zhou2024transfusion} and Emu2~\cite{sun2024emu2} extend it to joint comprehension and generation without quantizing pixels into a discrete codebook.
+
+The continuous paradigm offers three practical advantages. First, it preserves fine-grained visual detail that vector quantization removes, which is why CLIP-driven VLMs still dominate OCR, chart reasoning, and fine-grained VQA relative to early discrete unified models~\cite{team2024chameleon,lin2025toklip}. Second, it reuses pretrained vision encoders and diffusion latents developed over a decade of representation learning, so multimodal alignment can start from strong off-the-shelf features rather than training a tokenizer from scratch. Third, the interface remains end-to-end differentiable: gradients flow from language losses back through projectors into encoders when unfreezing is affordable.
+
+The price is architectural heterogeneity. Continuous patch tokens inflate context length; generation requires objectives beyond next-token cross-entropy on discrete ids---diffusion, flow matching, or external decoders must predict continuous targets or latents. Small calibration errors in continuous prediction also compound across autoregressive steps. Recent work therefore attacks the bottleneck along five complementary axes: contrastive encoders, connector design, latent generative codes, unified continuous MLLMs, and spatiotemporal or acoustic tokenization. Section~\ref{subsec:continuous-taxonomy} organizes these efforts; the remainder of this chapter examines each family and closes with a cross-cutting comparison.
+
+\subsection{A Taxonomy of Continuous Designs}
+\label{subsec:continuous-taxonomy}
+
+We organize continuous architectures into five families, ordered from foundational encoders to modality-specific token streams.
+
+\begin{itemize}
+    \item \textbf{Contrastive Vision--Language Encoders} align images and text in a shared embedding through contrastive learning, supplying the semantic continuous features that most understanding-oriented MLLMs consume~\cite{radford2021clip,sun2023evaclip,zhai2023siglip}.
+    \item \textbf{Connector Architectures} compress or adapt patch-level features into a length-controllable token sequence the LLM can attend to, via Q-Formers, linear projectors, or perceiver resamplers~\cite{li2023blip2,liu2023llava,dai2023instructblip,alayrac2022flamingo}.
+    \item \textbf{Latent Continuous Generative Codes} model images in smooth VAE or flow latents rather than in pixel space, providing a computationally efficient interface for diffusion and autoregressive generation heads~\cite{kingma2014vae,rombach2022ldm}.
+    \item \textbf{Unified Continuous MLLMs} train a single backbone on interleaved multimodal documents with continuous visual inputs for both understanding and synthesis~\cite{zhou2024transfusion,sun2024emu2,dong2024dreamllm,tian2024mminterleaved,tong2025metamorph,xu2025pisces,deng2025bagel}.
+    \item \textbf{Video and Audio Continuous Streams} serialize spatiotemporal or acoustic signals into patch- or frame-level embeddings for long-context LLM consumption~\cite{bertasius2021timesformer,tong2022videomae,liu2024valor,liu2025tuna,baevski2020wav2vec,radford2023whisper,elizalde2023clap,girdhar2023imagebind}.
+\end{itemize}
+
+The five families differ in \emph{where} continuity enters the stack: the pretrained encoder, the connector to the LLM, the generative latent, the unified training objective, or the temporal/audio front end. Each choice trades comprehension fidelity, generation quality, context efficiency, and training stability; we examine these trade-offs in turn.
+
+\subsection{Contrastive Vision--Language Encoders}
+\label{subsec:contrastive-enc}
+
+Contrastive encoders map images and captions into a shared metric space where semantic matches pull together and unrelated pairs push apart. CLIP~\cite{radford2021clip} trains dual image and text towers on hundreds of millions of web pairs, producing patch- or image-level embeddings that correlate with open-vocabulary concepts. EVA-CLIP~\cite{sun2023evaclip} scales CLIP training with improved optimization and larger encoders, raising zero-shot transfer without changing the continuous interface. SigLIP~\cite{zhai2023siglip} replaces softmax contrastive loss with a pairwise sigmoid objective, decoupling effective batch size from the loss definition and making large-batch training more stable on modest hardware.
+
+These encoders define the dominant \emph{semantic} continuous representation for MLLM understanding. Janus~\cite{DBLP:conf/cvpr/WuCWMLPLXYR025}, BAGEL~\cite{deng2025bagel}, and InstructBLIP-style systems route SigLIP or CLIP patches into the language model while keeping generation on a separate latent or discrete path. The design knobs are encoder scale, patch resolution, and alignment objective strength. Larger encoders improve fine-grained benchmarks but increase token count; stronger text alignment can blur low-level texture cues that pixel-VAE latents preserve. Hybrid architectures in Chapter~\ref{sec:hybrid} often pair a continuous understanding encoder with a discrete or latent generation tokenizer precisely because no single contrastive space optimizes both tasks.
+
+\subsection{Connector Architectures}
+\label{subsec:connectors}
+
+Raw patch embeddings from a frozen vision tower typically exceed practical LLM context budgets and sit in a different statistical regime than text embeddings. Connector architectures learn a parametric map from vision space to language space while keeping most pretrained weights intact.
+
+\subsubsection{Query-Based Pooling}
+\label{subsubsec:qformer}
+
+BLIP-2~\cite{li2023blip2} introduces a lightweight Q-Former: a fixed set of learnable queries attends to frozen image patches through cross-attention, producing a constant-length continuous token sequence for the frozen LLM. InstructBLIP~\cite{dai2023instructblip} conditions the Q-Former on the user instruction so that the pooled tokens emphasize task-relevant regions before language decoding. This design decouples encoder pretraining from LLM alignment and remains the reference implementation for parameter-efficient multimodal fine-tuning.
+
+\subsubsection{Linear and Perceiver Projection}
+\label{subsubsec:projector}
+
+LLaVA~\cite{liu2023llava,liu2024llava15} uses a simpler two-layer MLP projector to map CLIP patch features into the LLM embedding space, demonstrating that visual instruction tuning alone can match stronger baselines when data quality is high. Flamingo~\cite{alayrac2022flamingo} instead inserts gated cross-attention layers every few transformer blocks, allowing the frozen language model to attend directly to visual features without compressing them to a fixed query count. Perceiver-style resamplers, popularized in open reproductions such as Idefics2, trade extra parameters for stronger compression when unfreezing the LLM backbone.
+
+Connector choice interacts with training stage: Q-Formers excel when the vision encoder stays frozen; MLP projectors suffice when instruction data is rich; cross-attention fusion maximizes expressivity at the cost of compute. The persistent limitation is that any compression step can discard spatial detail, which motivates unified models that access multi-scale features dynamically.
+
+\subsection{Latent Continuous Generative Codes}
+\label{subsec:latent-codes}
+
+Generative MLLMs must represent images in a space where both reconstruction and conditional prediction are tractable. Variational autoencoders~\cite{kingma2014vae} map pixels to a low-dimensional Gaussian latent with a differentiable decoder, establishing the continuous manifold on which modern diffusion systems operate. Latent diffusion models~\cite{rombach2022ldm} run the forward--reverse diffusion process in that latent space, reducing compute while preserving perceptual fidelity.
+
+Continuous latents serve three roles in unified systems. First, they provide \emph{generation targets}: Transfusion~\cite{zhou2024transfusion} patchifies VAE latents and trains a diffusion head in parallel with text next-token prediction inside one transformer. Second, they supply \emph{editable intermediates}: DreamLLM~\cite{dong2024dreamllm} couples comprehension with diffusion-based creation in raw multimodal space rather than through external CLIP features alone. Third, they enable \emph{temporal compression}: Tuna~\cite{liu2025tuna} applies a 3D VAE to downsample video into latent voxels before patchification. The design knobs are latent channel dimension, compression ratio, and whether the LLM predicts latents autoregressively or through a separate denoising head. Autoregressive latent prediction can suffer from exposure bias; auxiliary diffusion or flow heads stabilize training at the cost of a hybrid objective.
+
+\subsection{Unified Continuous Multimodal Models}
+\label{subsec:unified-continuous}
+
+Unified continuous MLLMs aim to read and write multimodal content through a single backbone without discretizing visual inputs for understanding.
+
+\subsubsection{Diffusion--Language Hybrids}
+\label{subsubsec:diffusion-hybrid}
+
+Transfusion~\cite{zhou2024transfusion} trains one transformer with causal attention on text and bidirectional attention on image patches, combining cross-entropy on text tokens with a diffusion loss on VAE latents. Scaling to 7B parameters and trillions of multimodal tokens shows that continuous latents scale more favorably than discrete visual vocabularies at matched compute. BAGEL~\cite{deng2025bagel} extends the idea with mixture-of-transformer-experts routing: a continuous ViT stream handles understanding while a VAE stream feeds generation experts, sharing attention but not feed-forward parameters. Show-o~\cite{xie2025show} is often discussed alongside these models; it feeds continuous CLIP features during understanding while keeping discrete MAGVIT codes for generation, illustrating the comprehension--generation gap that fully continuous unified models still try to close.
+
+\subsubsection{Interleaved In-Context Learners}
+\label{subsubsec:interleaved}
+
+Emu2~\cite{sun2024emu2} treats multimodal sequences as in-context learning problems: continuous visual embeddings interleave with text inside a generative pretraining objective, enabling zero-shot task composition without task-specific heads. MM-Interleaved~\cite{tian2024mminterleaved} adds a multi-modal feature synchronizer that dynamically pulls multi-scale visual features during interleaved image--text modeling, reducing the information loss of a single grid resolution. DreamLLM~\cite{dong2024dreamllm} further emphasizes joint modeling of comprehension and creation in one autoregressive interface, using diffusion decoders for image synthesis while keeping language modeling on continuous-conditioned hidden states.
+
+MetaMorph~\cite{tong2025metamorph} and Pisces~\cite{xu2025pisces} refine how continuous visual tokens are organized---instruction tuning with unified AR objectives, hierarchical position encoding, and mixed-resolution training improve both understanding and generation metrics without abandoning dense features. TokLIP~\cite{lin2025toklip} shows that semanticizing even discrete VQ tokens via CLIP distillation recovers much of the comprehension gap, underscoring that alignment quality of the continuous pathway remains the binding constraint for unified models.
+
+\subsection{Video and Audio Continuous Streams}
+\label{subsec:video-audio}
+
+Video extends the continuous interface along time. TimeSformer~\cite{bertasius2021timesformer} patchifies frames and applies factorized space--time attention, yielding a scalable token sequence for transformers. VideoMAE~\cite{tong2022videomae} learns robust spatiotemporal features through high-mask-ratio autoencoding when labels are scarce. CLIP4Clip~\cite{luo2022clip4clip} studies temporal aggregation over frame-level CLIP embeddings for retrieval, highlighting that pooling strategy is as important as frame features. For omni-perception, VALOR~\cite{liu2024valor} aligns video, audio, and text in one contrastive space and exports continuous features for downstream LLMs. Tuna~\cite{liu2025tuna} targets native unified video--language models with 3D-VAE latents and sliding-window attention over spatiotemporal patches.
+
+Audio continuous representations begin with self-supervised speech encoders. wav2vec 2.0~\cite{baevski2020wav2vec}, HuBERT~\cite{hsu2021hubert}, and WavLM~\cite{chen2022wavlm} map waveforms to frame-level latent trajectories usable as LLM inputs. Whisper~\cite{radford2023whisper} adds weakly supervised speech-to-text alignment at scale. For general sound, CLAP~\cite{elizalde2023clap} learns language-describable audio embeddings, and ImageBind~\cite{girdhar2023imagebind} binds audio to images and text through a shared continuous space with image as the hub modality. The recurring challenge across modalities is \emph{redundancy}: naive frame or waveform tokenization exceeds context budgets, so compression via contrastive pooling, latent VAEs, or learned resamplers is mandatory for long-form inputs.
+
+\subsection{Cross-Cutting Comparison}
+\label{subsec:continuous-comparison}
+
+Table~\ref{tab:continuous-compare} summarizes the five continuous families along four axes: representation type, bridge mechanism, primary training objective, and headline trade-off. Three patterns emerge. First, understanding-heavy systems cluster around contrastive encoders plus connectors, while generation-heavy systems add VAE latents or diffusion heads. Second, unified models that score well on both tasks almost always \emph{compose} multiple continuous pathways rather than forcing one representation to serve all objectives. Third, video and audio introduce temporal redundancy that demands stronger compression than static images, echoing the connector-design problem at a larger scale.
+
+\begin{table}[t]
+  \caption{Cross-family comparison of continuous architectures. ``C'' denotes continuous tokens; bridge column marks where features meet the LLM.}
+  \label{tab:continuous-compare}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{0.20\linewidth}p{0.16\linewidth}p{0.18\linewidth}p{0.10\linewidth}p{0.22\linewidth}@{}}
+    \toprule
+    Family & Visual repr. & Bridge & Obj. & Trade-off \\
+    \midrule
+    Contrastive encoders  & C semantic patches     & (pre-LLM)      & contrastive & Strong und., weak gen. \\
+    Connectors            & C patches $\to$ tokens & Q-Former / MLP & CE SFT      & Context vs.\ detail \\
+    Latent generative codes & C VAE latents        & patchify       & CE + diffusion & Stable gen., hybrid train \\
+    Unified continuous    & C und. + C/VAE gen.  & in-backbone    & mixed       & Best peak, complex stack \\
+    Video / audio streams & C spatiotemporal     & pool / 3D VAE  & contrastive / MAE & Length vs.\ fidelity \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Open Problems and Outlook}
+\label{subsec:continuous-outlook}
+
+Continuous architectures underpin most state-of-the-art multimodal understanding and increasingly anchor unified generation stacks, yet several questions remain open.
+
+\textbf{Single-space versus dual-path unification.} Empirical results from Janus, BAGEL, and Show-o suggest that one continuous representation rarely maximizes both comprehension and synthesis. Whether a shared latent can be learned end-to-end without task-specific branches is still unresolved.
+
+\textbf{Context-efficient continuous tokenization.} Projectors and 3D VAEs reduce length but can erase fine detail needed for document AI. Dynamic routing, as in MM-Interleaved, and multi-scale connectors point toward adaptive compression, but scaling laws for continuous token budget are unknown.
+
+\textbf{Modality-balanced training objectives.} Transfusion and BAGEL mix cross-entropy with diffusion or flow losses that compete for capacity. Adaptive loss weighting and curriculum design remain ad hoc compared with the mature recipes for text-only LLMs.
+
+The continuous agenda reframes unified MLLMs as an interface-design problem first: choose where continuity enters, how it is compressed, and which objective supervises each pathway. As connectors, latents, and temporal encoders become composable, continuous architectures are likely to remain the default substrate even when discrete or hybrid routes handle generation at the token level.
+%% End of \section{Continuous Architectures}
